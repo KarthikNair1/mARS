@@ -1,0 +1,42 @@
+{
+  "os": "Linux-4.18.0-477.27.1.el8_8.x86_64-x86_64-with-glibc2.28",
+  "python": "CPython 3.10.18",
+  "startedAt": "2025-12-05T07:42:42.416910Z",
+  "args": [
+    "/gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/2D_with_bone_segmentation/training_config.yaml"
+  ],
+  "program": "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py",
+  "codePath": "MARS/run_lars/train.py",
+  "codePathLocal": "MARS/run_lars/train.py",
+  "email": "nair.karthik00@gmail.com",
+  "root": "/gpfs/home/kn2347/MARS",
+  "host": "a100-4011",
+  "executable": "/gpfs/home/kn2347/.conda/envs/myeloma6/bin/python",
+  "cpu_count": 48,
+  "cpu_count_logical": 48,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "210241560576",
+      "used": "12448452608"
+    }
+  },
+  "memory": {
+    "total": "540465025024"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere",
+      "uuid": "GPU-6013f8cc-5e1a-51a0-af87-0893a178e31b"
+    }
+  ],
+  "cudaVersion": "12.9",
+  "slurm": {
+    "job_id": "14953870"
+  },
+  "writerId": "d3u0adus2w0h80naxvw5w5w66yqay2is"
+}

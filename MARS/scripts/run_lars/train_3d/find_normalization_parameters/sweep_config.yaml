@@ -1,0 +1,20 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/code_3d/train.py
+method: bayes
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  normalize_mean:
+    min: -50.0
+    max: 50.0
+    distribution: uniform
+  normalize_std:
+    min: 0.01
+    max: 50
+    distribution: uniform
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train_3d/find_normalization_parameters/training_config.yaml

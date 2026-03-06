@@ -1,0 +1,12 @@
+{"time":"2025-09-26T13:00:33.218049027-04:00","level":"INFO","msg":"stream: starting","core version":"0.22.0"}
+{"time":"2025-09-26T13:00:33.452029015-04:00","level":"INFO","msg":"stream: created new stream","id":"mpezcrtw"}
+{"time":"2025-09-26T13:00:33.452116867-04:00","level":"INFO","msg":"stream: started","id":"mpezcrtw"}
+{"time":"2025-09-26T13:00:33.452187491-04:00","level":"INFO","msg":"writer: started","stream_id":"mpezcrtw"}
+{"time":"2025-09-26T13:00:33.452259354-04:00","level":"INFO","msg":"handler: started","stream_id":"mpezcrtw"}
+{"time":"2025-09-26T13:00:33.452198792-04:00","level":"INFO","msg":"sender: started","stream_id":"mpezcrtw"}
+{"time":"2025-09-26T13:00:33.641289356-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2025-09-26T13:03:28.383617304-04:00","level":"INFO","msg":"stream: closing","id":"mpezcrtw"}
+{"time":"2025-09-26T13:03:28.649720064-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-26T13:03:28.734365224-04:00","level":"INFO","msg":"handler: closed","stream_id":"mpezcrtw"}
+{"time":"2025-09-26T13:03:28.73463386-04:00","level":"INFO","msg":"sender: closed","stream_id":"mpezcrtw"}
+{"time":"2025-09-26T13:03:28.734712315-04:00","level":"INFO","msg":"stream: closed","id":"mpezcrtw"}

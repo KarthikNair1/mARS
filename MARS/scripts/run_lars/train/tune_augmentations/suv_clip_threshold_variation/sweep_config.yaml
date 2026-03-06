@@ -1,0 +1,13 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  suv_clip_threshold_max:
+    values: [30.0, 50.0, 70.0, 100.0, 150.0, 200.0, 300.0, 500.0]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/tune_augmentations/suv_clip_threshold_variation/training_config.yaml

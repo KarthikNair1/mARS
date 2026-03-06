@@ -1,0 +1,13 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  postfilter_fwhm_xy_mm_max:
+    values: [9.8, 15, 22.5, 35.0, 50.0, 70.0, 100.0]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/combine_mipviews/feature_concatenation/postfilter_variation/base_config.yaml

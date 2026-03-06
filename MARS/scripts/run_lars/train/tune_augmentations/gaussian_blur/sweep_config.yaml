@@ -1,0 +1,13 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  BLUR_sigma_high:
+    values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 25.0, 50.0, 100.0]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/tune_augmentations/gaussian_blur/training_config.yaml

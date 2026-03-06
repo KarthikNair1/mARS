@@ -1,0 +1,37 @@
+[34m[1mwandb[0m: [32m[41mERROR[0m Unhandled define_metric() arg: name (glob suffixes only): train/*_step
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 437, in <module>
+    main()
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 94, in main
+    wandb_run = init_wandb(args)
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 71, in init_wandb
+    wandb.define_metric("train/*_step", step_metric="train/step")
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 399, in wrapper
+    return func(self, *args, **kwargs)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 457, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 444, in wrapper
+    return func(self, *args, **kwargs)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 2837, in define_metric
+    return self._define_metric(
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 2878, in _define_metric
+    raise wandb.Error(
+wandb.errors.errors.Error: Unhandled define_metric() arg: name (glob suffixes only): train/*_step
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 437, in <module>
+    main()
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 94, in main
+    wandb_run = init_wandb(args)
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 71, in init_wandb
+    wandb.define_metric("train/*_step", step_metric="train/step")
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 399, in wrapper
+    return func(self, *args, **kwargs)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 457, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 444, in wrapper
+    return func(self, *args, **kwargs)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 2837, in define_metric
+    return self._define_metric(
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 2878, in _define_metric
+    raise wandb.Error(
+wandb.errors.errors.Error: Unhandled define_metric() arg: name (glob suffixes only): train/*_step

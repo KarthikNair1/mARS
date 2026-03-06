@@ -1,0 +1,18 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/code_3d/train.py
+method: bayes
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  ct_bone_seg_dilation_erosion_pixels:
+    min: 1
+    max: 15
+  ct_bone_seg_dilation_alone_pixels:
+    min: 1
+    max: 15
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train_3d/train_with_ct_bone_seg/training_config.yaml

@@ -1,0 +1,151 @@
+_wandb:
+    value:
+        cli_version: 0.22.0
+        code_path: code/MARS/run_lars/train.py
+        e:
+            b3rwrmbjtro5w0iijj36ykzdfzqwzvn2:
+                args:
+                    - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/train_mars_9-24-25/training_config.yaml
+                codePath: MARS/run_lars/train.py
+                codePathLocal: MARS/run_lars/train.py
+                cpu_count: 40
+                cpu_count_logical: 40
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "1282967031808"
+                        used: "10692382720"
+                email: nair.karthik00@gmail.com
+                executable: /gpfs/home/kn2347/.conda/envs/myeloma6/bin/python
+                gpu: Tesla V100-SXM2-16GB
+                gpu_count: 4
+                gpu_nvidia:
+                    - architecture: Volta
+                      cudaCores: 5120
+                      memoryTotal: "17179869184"
+                      name: Tesla V100-SXM2-16GB
+                      uuid: GPU-a7a086a1-56f2-1302-be76-566742cda06a
+                    - architecture: Volta
+                      cudaCores: 5120
+                      memoryTotal: "17179869184"
+                      name: Tesla V100-SXM2-16GB
+                      uuid: GPU-15c72fa1-3780-387d-c4f0-1b5fe1603d57
+                    - architecture: Volta
+                      cudaCores: 5120
+                      memoryTotal: "17179869184"
+                      name: Tesla V100-SXM2-16GB
+                      uuid: GPU-6367eab6-0a05-2f97-7e08-844665ded8f6
+                    - architecture: Volta
+                      cudaCores: 5120
+                      memoryTotal: "17179869184"
+                      name: Tesla V100-SXM2-16GB
+                      uuid: GPU-4b0b229a-ce48-88af-212c-5308dfd78cba
+                host: gn-0013
+                memory:
+                    total: "404341198848"
+                os: Linux-4.18.0-477.27.1.el8_8.x86_64-x86_64-with-glibc2.28
+                program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+                python: CPython 3.10.18
+                root: /gpfs/home/kn2347/MARS
+                startedAt: "2025-09-24T22:57:36.350038Z"
+                writerId: b3rwrmbjtro5w0iijj36ykzdfzqwzvn2
+        m:
+            - "2": epoch/train/*
+              "5": 2
+              "6":
+                - 1
+              "7": []
+            - "1": epoch
+              "6": []
+              "7": []
+            - "2": step/train/*
+              "5": 4
+              "6":
+                - 1
+              "7": []
+            - "1": train_step
+              "6": []
+              "7": []
+            - "2": epoch/val/*
+              "5": 2
+              "6":
+                - 1
+              "7": []
+        python_version: 3.10.18
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 53
+            "2":
+                - 1
+                - 5
+                - 41
+                - 53
+            "3":
+                - 7
+                - 15
+                - 16
+            "4": 3.10.18
+            "5": 0.22.0
+            "12": 0.22.0
+            "13": linux-x86_64
+WANDB_run_name:
+    value: null
+WANDB_tags:
+    value: []
+arch:
+    value: resnet34
+augm:
+    value: 0
+balance:
+    value: false
+batch_size:
+    value: 16
+checkpoint:
+    value: /gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth
+checkpoint_folder:
+    value: ""
+data_path_img:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/
+early_stopping:
+    value: false
+fast_dev_run:
+    value: true
+lr:
+    value: 0.001
+lr_anneal:
+    value: 15
+lr_scheduler:
+    value: false
+momentum:
+    value: 0.9
+nepochs:
+    value: 40
+normalize:
+    value: true
+normalize_mean:
+    value: null
+normalize_std:
+    value: null
+optimizer:
+    value: sgd
+output:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_mars_9-24-25
+resume:
+    value: false
+run:
+    value: 0
+seed_index:
+    value: 0
+target_label_name:
+    value: PET_jco
+train_datapath_csv:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/train_df.csv
+val_datapath_csv:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/val_df.csv
+wd:
+    value: 0.0001
+workers:
+    value: 6

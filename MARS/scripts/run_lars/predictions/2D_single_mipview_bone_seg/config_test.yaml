@@ -1,0 +1,30 @@
+# I/O PARAMS
+# INPUT
+data_path_img: '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/' # path to directory housing h5 files
+data_path_datafiles: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/test_df.csv' # path to directory housing datafiles (csv files)
+model_path_pattern: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_single_mipview_2D_bone_seg_1-2-26/no_dilation/checkpoint_seed*_run*_best.pth"
+dataset_type: "test"
+#model_path_pattern: "/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth"
+
+
+# OUTPUT
+output: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/2D_single_mipview_bone_seg_prediction/test"
+
+# MODEL PARAMS
+nfeat: 512
+
+# DATA PARAMS
+ct_mode: "BONE_SEG_MASK_MULTIPLY"
+#ct_bone_seg_dilation_erosion: 7
+#ct_bone_seg_dilation_alone: 0
+normalize: true
+postfilter_fwhm_xy_mm: 6.4
+#normalize_mean: 0.6763
+#normalize_std: 1.6433
+
+# DATALOADER PARAMS
+batch_size: 128
+workers: 6
+
+
+

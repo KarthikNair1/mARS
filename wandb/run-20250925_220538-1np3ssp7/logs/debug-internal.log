@@ -1,0 +1,13 @@
+{"time":"2025-09-25T22:05:38.849704042-04:00","level":"INFO","msg":"stream: starting","core version":"0.22.0"}
+{"time":"2025-09-25T22:05:39.053701655-04:00","level":"INFO","msg":"stream: created new stream","id":"1np3ssp7"}
+{"time":"2025-09-25T22:05:39.053770446-04:00","level":"INFO","msg":"stream: started","id":"1np3ssp7"}
+{"time":"2025-09-25T22:05:39.053792807-04:00","level":"INFO","msg":"writer: started","stream_id":"1np3ssp7"}
+{"time":"2025-09-25T22:05:39.053846338-04:00","level":"INFO","msg":"handler: started","stream_id":"1np3ssp7"}
+{"time":"2025-09-25T22:05:39.05380153-04:00","level":"INFO","msg":"sender: started","stream_id":"1np3ssp7"}
+{"time":"2025-09-25T22:05:39.239201255-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2025-09-25T22:48:24.551852083-04:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/nair-karthik00/MARS/1np3ssp7/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-09-25T22:51:26.795454177-04:00","level":"INFO","msg":"stream: closing","id":"1np3ssp7"}
+{"time":"2025-09-25T22:51:27.163229821-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-25T22:51:27.260250467-04:00","level":"INFO","msg":"handler: closed","stream_id":"1np3ssp7"}
+{"time":"2025-09-25T22:51:27.32485539-04:00","level":"INFO","msg":"sender: closed","stream_id":"1np3ssp7"}
+{"time":"2025-09-25T22:51:27.324923956-04:00","level":"INFO","msg":"stream: closed","id":"1np3ssp7"}

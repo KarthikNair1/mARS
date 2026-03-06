@@ -1,0 +1,12 @@
+{"time":"2025-09-25T03:50:28.628721474-04:00","level":"INFO","msg":"stream: starting","core version":"0.22.0"}
+{"time":"2025-09-25T03:50:28.868034564-04:00","level":"INFO","msg":"stream: created new stream","id":"akosy2li"}
+{"time":"2025-09-25T03:50:28.868134637-04:00","level":"INFO","msg":"stream: started","id":"akosy2li"}
+{"time":"2025-09-25T03:50:28.868209977-04:00","level":"INFO","msg":"writer: started","stream_id":"akosy2li"}
+{"time":"2025-09-25T03:50:28.868279166-04:00","level":"INFO","msg":"handler: started","stream_id":"akosy2li"}
+{"time":"2025-09-25T03:50:28.868210053-04:00","level":"INFO","msg":"sender: started","stream_id":"akosy2li"}
+{"time":"2025-09-25T03:50:29.005645753-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2025-09-25T03:54:24.485367968-04:00","level":"INFO","msg":"stream: closing","id":"akosy2li"}
+{"time":"2025-09-25T03:54:24.76027174-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-25T03:54:24.903969385-04:00","level":"INFO","msg":"handler: closed","stream_id":"akosy2li"}
+{"time":"2025-09-25T03:54:24.904233454-04:00","level":"INFO","msg":"sender: closed","stream_id":"akosy2li"}
+{"time":"2025-09-25T03:54:24.904266487-04:00","level":"INFO","msg":"stream: closed","id":"akosy2li"}

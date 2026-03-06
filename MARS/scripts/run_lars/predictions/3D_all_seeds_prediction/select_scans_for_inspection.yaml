@@ -1,0 +1,10 @@
+# I/O PARAMS
+# INPUT
+probabilities_aggregate_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/results/3D_all_seeds_prediction/val/pred_val_mipview_aggregate.csv'
+dataset_type: "val"
+
+
+# OUTPUT
+output: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/3D_all_seeds_prediction"
+target_label_name: 'PET_jco'  # name of the target label column in the csv files
+prob_mode: 'mean'

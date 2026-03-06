@@ -1,0 +1,17 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+method: random
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  lr:
+    values: [0.00001, 0.0005, 0.001, 0.005, 0.01]
+  momentum:
+    values: [0.5, 0.8, 0.9, 0.95, 0.99]
+  wd:
+    values: [0.0, 0.00001, 0.0001, 0.001]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/single_mipview_optimizer_tuning/training_config.yaml

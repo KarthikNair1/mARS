@@ -1,0 +1,30 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=6
+#SBATCH --job-name=mm_dl
+#SBATCH --mem=100GB
+#SBATCH --gres=gpu:1
+#SBATCH --partition=a100_short
+#SBATCH --time=3-00:00:00
+#SBATCH --exclude=a100-4005,a100-4020
+
+cd /gpfs/home/kn2347/MARS
+set -x -e
+
+module add anaconda3/gpu/2025.06
+module load anaconda3/gpu/2025.06
+module load gcc/11.2.0
+module load qt5/5.11.1
+conda activate myeloma6
+module purge
+module load slurm/current
+
+export WANDB_API_KEY='e51b9830c285698aced24214131f58ee2bfbd5e3'
+export WANDB_CACHE_DIR='/gpfs/home/kn2347/.cache/wandb'
+export WANDB_CONFIG_DIR='/gpfs/home/kn2347/.config/wandb'
+export WANDB_DIR='/gpfs/home/kn2347/wandb'
+
+cd /gpfs/home/kn2347/MARS
+#python MARS/run_lars/select_scans_for_inspection.py /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/predictions/2D_dual_mipview_all_seeds_prediction/generate_gradcams_val.yaml
+python MARS/run_lars/generate_gradcams.py /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/predictions/2D_dual_mipview_all_seeds_prediction/generate_gradcams_val.yaml

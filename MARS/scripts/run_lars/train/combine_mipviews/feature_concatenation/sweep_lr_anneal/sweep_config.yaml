@@ -1,0 +1,13 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  lr_anneal:
+    values: [15, 50, 100, 1000]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/combine_mipviews/feature_concatenation/sweep_lr_anneal/base_config.yaml

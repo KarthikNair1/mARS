@@ -1,0 +1,7 @@
+{"time":"2025-10-07T20:59:47.94905747-04:00","level":"INFO","msg":"stream: starting","core version":"0.22.0"}
+{"time":"2025-10-07T20:59:48.205588766-04:00","level":"INFO","msg":"stream: created new stream","id":"9wyhozln"}
+{"time":"2025-10-07T20:59:48.205669844-04:00","level":"INFO","msg":"stream: started","id":"9wyhozln"}
+{"time":"2025-10-07T20:59:48.207599596-04:00","level":"INFO","msg":"handler: started","stream_id":"9wyhozln"}
+{"time":"2025-10-07T20:59:48.207704751-04:00","level":"INFO","msg":"writer: started","stream_id":"9wyhozln"}
+{"time":"2025-10-07T20:59:48.208500395-04:00","level":"INFO","msg":"sender: started","stream_id":"9wyhozln"}
+{"time":"2025-10-07T20:59:48.408220873-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}

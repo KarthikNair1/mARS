@@ -1,0 +1,13 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/code_3d/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  postfilter_fwhm_xy_mm_max:
+    values: [16.6, 25.0, 35.0, 50.0, 75.0]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train_3d/tune_augmentations/postfilter_variation/training_config.yaml

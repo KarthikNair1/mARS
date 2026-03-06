@@ -1,0 +1,63 @@
+{
+  "os": "Linux-4.18.0-477.27.1.el8_8.x86_64-x86_64-with-glibc2.28",
+  "python": "CPython 3.10.18",
+  "startedAt": "2025-10-08T00:59:47.431093Z",
+  "args": [
+    "/gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train_3d/train_mars/training_config.yaml"
+  ],
+  "program": "/gpfs/home/kn2347/MARS/MARS/run_lars/code_3d/train.py",
+  "codePath": "MARS/run_lars/code_3d/train.py",
+  "codePathLocal": "MARS/run_lars/code_3d/train.py",
+  "email": "nair.karthik00@gmail.com",
+  "root": "/gpfs/home/kn2347/MARS",
+  "host": "gn-0019",
+  "executable": "/gpfs/home/kn2347/.conda/envs/myeloma6/bin/python",
+  "cpu_count": 40,
+  "cpu_count_logical": 40,
+  "gpu": "Tesla V100-SXM2-16GB",
+  "gpu_count": 4,
+  "disk": {
+    "/": {
+      "total": "1282967031808",
+      "used": "10692882432"
+    }
+  },
+  "memory": {
+    "total": "404341198848"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Tesla V100-SXM2-16GB",
+      "memoryTotal": "17179869184",
+      "cudaCores": 5120,
+      "architecture": "Volta",
+      "uuid": "GPU-663eb5d3-7e0f-259c-e805-e2266d9e0b90"
+    },
+    {
+      "name": "Tesla V100-SXM2-16GB",
+      "memoryTotal": "17179869184",
+      "cudaCores": 5120,
+      "architecture": "Volta",
+      "uuid": "GPU-13847322-0965-62f3-3528-7115225d877c"
+    },
+    {
+      "name": "Tesla V100-SXM2-16GB",
+      "memoryTotal": "17179869184",
+      "cudaCores": 5120,
+      "architecture": "Volta",
+      "uuid": "GPU-53b7fdbf-1c42-adbc-ae10-e8ac48a82938"
+    },
+    {
+      "name": "Tesla V100-SXM2-16GB",
+      "memoryTotal": "17179869184",
+      "cudaCores": 5120,
+      "architecture": "Volta",
+      "uuid": "GPU-cf1819b4-717d-a305-4ea2-32dce159cb34"
+    }
+  ],
+  "cudaVersion": "12.9",
+  "slurm": {
+    "job_id": "9236986"
+  },
+  "writerId": "jflay1n5j2j0wf4ci10magb8d6xe0czr"
+}

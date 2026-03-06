@@ -1,0 +1,1158 @@
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_setup.py:_flush():81] Current SDK version is 0.22.0
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_setup.py:_flush():81] Configure stats pid to 2759393
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_setup.py:_flush():81] Loading settings from /gpfs/home/kn2347/.config/wandb/settings
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_setup.py:_flush():81] Loading settings from /gpfs/home/kn2347/MARS/wandb/settings
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /gpfs/home/kn2347/MARS/wandb/run-20250925_150759-knidi4p8/logs/debug.log
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /gpfs/home/kn2347/MARS/wandb/run-20250925_150759-knidi4p8/logs/debug-internal.log
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_init.py:init():813] calling init triggers
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'data_path_img': '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/', 'train_datapath_csv': '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/train_df.csv', 'val_datapath_csv': '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/val_df.csv', 'output': '/gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_mars_9-24-25', 'arch': 'resnet34', 'checkpoint': '/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth', 'seed_index': 0, 'run': 0, 'checkpoint_folder': '', 'resume': False, 'optimizer': 'sgd', 'lr': 0.001, 'lr_anneal': 15, 'momentum': 0.9, 'wd': 0.0001, 'batch_size': 16, 'nepochs': 40, 'workers': 6, 'augm': 0, 'balance': False, 'lr_scheduler': False, 'early_stopping': False, 'fast_dev_run': False, 'normalize': True, 'target_label_name': 'PET_jco', 'normalize_mean': None, 'normalize_std': None, 'WANDB_tags': [], 'WANDB_run_name': None, '_wandb': {'code_path': 'code/MARS/run_lars/train.py'}}
+2025-09-25 15:07:59,321 INFO    MainThread:2759393 [wandb_init.py:init():861] starting backend
+2025-09-25 15:07:59,599 INFO    MainThread:2759393 [wandb_init.py:init():864] sending inform_init request
+2025-09-25 15:07:59,628 INFO    MainThread:2759393 [wandb_init.py:init():872] backend started and connected
+2025-09-25 15:07:59,633 INFO    MainThread:2759393 [wandb_init.py:init():942] updated telemetry
+2025-09-25 15:07:59,634 INFO    MainThread:2759393 [wandb_init.py:init():966] communicating run to backend with 90.0 second timeout
+2025-09-25 15:08:00,011 INFO    MainThread:2759393 [wandb_init.py:init():1017] starting run threads in backend
+2025-09-25 15:08:04,139 INFO    MainThread:2759393 [wandb_run.py:_console_start():2506] atexit reg
+2025-09-25 15:08:04,140 INFO    MainThread:2759393 [wandb_run.py:_redirect():2354] redirect: wrap_raw
+2025-09-25 15:08:04,140 INFO    MainThread:2759393 [wandb_run.py:_redirect():2423] Wrapping output streams.
+2025-09-25 15:08:04,140 INFO    MainThread:2759393 [wandb_run.py:_redirect():2446] Redirects installed.
+2025-09-25 15:08:04,187 INFO    MainThread:2759393 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-25 15:29:35,010 INFO    MainThread:2759393 [wandb_run.py:_config_callback():1392] config_cb ('_wandb', 'visualize', 'val_roc') {'panel_type': 'Vega2', 'panel_config': {'panelDefId': 'wandb/area-under-curve/v0', 'fieldSettings': {'x': 'fpr', 'y': 'tpr', 'class': 'class'}, 'stringSettings': {'title': 'ROC Curve', 'x-axis-title': 'False positive rate', 'y-axis-title': 'True positive rate'}, 'transform': {'name': 'tableWithLeafColNames'}, 'userQuery': {'queryFields': [{'name': 'runSets', 'args': [{'name': 'runSets', 'value': '${runSets}'}], 'fields': [{'name': 'id', 'fields': []}, {'name': 'name', 'fields': []}, {'name': '_defaultColorIndex', 'fields': []}, {'name': 'summaryTable', 'args': [{'name': 'tableKey', 'value': 'val_roc_table'}], 'fields': []}]}]}}} None
+2025-09-25 15:29:35,248 INFO    MainThread:2759393 [wandb_run.py:_config_callback():1392] config_cb ('_wandb', 'visualize', 'val_conf_mat') {'panel_type': 'Vega2', 'panel_config': {'panelDefId': 'wandb/confusion_matrix/v1', 'fieldSettings': {'Actual': 'Actual', 'Predicted': 'Predicted', 'nPredictions': 'nPredictions'}, 'stringSettings': {'title': 'Confusion Matrix Curve'}, 'transform': {'name': 'tableWithLeafColNames'}, 'userQuery': {'queryFields': [{'name': 'runSets', 'args': [{'name': 'runSets', 'value': '${runSets}'}], 'fields': [{'name': 'id', 'fields': []}, {'name': 'name', 'fields': []}, {'name': '_defaultColorIndex', 'fields': []}, {'name': 'summaryTable', 'args': [{'name': 'tableKey', 'value': 'val_conf_mat_table'}], 'fields': []}]}]}}} None
+2025-09-25 15:44:11,120 INFO    wandb-AsyncioManager-main:2759393 [service_client.py:_forward_responses():84] Reached EOF.
+2025-09-25 15:44:11,120 INFO    wandb-AsyncioManager-main:2759393 [mailbox.py:close():137] Closing mailbox, abandoning 1 handles.
+2025-09-25 15:44:11,181 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,234 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,234 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,236 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,236 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,238 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,238 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,238 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,240 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,240 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,241 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,241 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,241 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,241 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,242 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,243 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,244 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,244 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,244 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,248 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,248 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,248 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,249 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,249 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,249 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,251 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,252 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,252 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,252 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,253 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,253 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,253 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,253 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,254 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,254 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,254 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,254 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,255 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,255 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,258 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,258 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,259 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,259 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,259 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,259 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,260 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,260 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,266 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,267 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,267 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,267 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,268 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,268 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,268 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,268 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,269 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,269 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,269 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,270 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,275 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,275 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,275 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,276 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,276 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,276 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,277 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,277 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,277 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,277 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,278 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,278 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,278 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,279 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,279 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,279 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,279 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,280 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,280 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,280 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,281 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,281 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,281 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,281 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,282 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,282 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,282 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,282 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,290 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,290 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,290 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,291 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,291 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,291 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,292 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,292 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,292 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,292 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,293 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,293 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,293 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,294 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,294 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2025-09-25 15:44:11,294 ERROR   wandb-AsyncioManager-main:2759393 [asyncio_manager.py:fn_wrap_exceptions():183] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/asyncio_manager.py", line 181, in fn_wrap_exceptions
+    await fn()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/wandb/sdk/lib/service/service_client.py", line 65, in _send_server_request
+    await self._writer.drain()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost

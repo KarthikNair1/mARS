@@ -1,0 +1,13 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/code_3d/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  lr:
+    values: [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train_3d/hyperparam_tuning/find_lr/base_config.yaml

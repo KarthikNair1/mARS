@@ -1,0 +1,63 @@
+# I/O PARAMS
+# INPUT
+data_path_img: '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/' # path to directory housing h5 files
+train_datapath_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/dfs_with_bone_segmentation/train_df_with_ct_bone_segmentation.csv' # path to directory housing datafiles (csv files)
+val_datapath_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/dfs_with_bone_segmentation/val_df_with_ct_bone_segmentation.csv' # path to directory housing datafiles (csv files)
+
+# OUTPUT
+output: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/train_3d/train_all_seeds_bone_seg_mask_multiply_alone_1-1-26/no_normalize"
+
+# MODEL PARAMS
+arch: 'resnet34'  # model architecture (default: resnet34)
+#checkpoint: "/gpfs/data/mayerhoeferlab/projects/lars/lars3d_chpt/LARS_trained_state-dict_0.pth" # model checkpoint
+#seed_index: 0 # which model index are we using ( should match the index in checkpoint) 
+run: 0 # repetition run index
+checkpoint_folder: ''
+resume: false # resume from checkpoint
+
+# OPTIMIZATION PARAMS
+optimizer: 'sgd'
+lr: 0.001
+lr_anneal: 15
+momentum: 0.9
+wd: 0.01
+
+# TRAINING PARAMS
+batch_size: 4
+nepochs: 30
+workers: 6
+balance: false
+lr_scheduler: false
+early_stopping: false
+fast_dev_run: false  # if true, runs a single batch for train, val, and test to check that the code runs without errors
+
+
+# LR SCHEDULING PARAMS
+lr_scheduler: "cosine_with_warm_restarts"
+lr_scheduler_min_lr: 0.000001
+lr_scheduler_cycle_length: 5  # T_0 parameter for CosineAnnealingWarmRestarts
+lr_scheduler_warm_restarts_multiplier: 2  # T_mult parameter for CosineAnnealingWarmRestarts
+#lr_scheduler_patience: 1
+#lr_scheduler_reduction_factor: 0.1
+
+# LOGGING PARAMS
+log_example_images: true
+WANDB_tags: ['3D', 'postfilter_variation', 'cosine_warm_restarts', 'ct_bone_seg', 'mask_multiply_only']
+
+# DATA PARAMS
+normalize: false
+postfilter_fwhm_xy_mm: 6.4  # target postfilter fwhm in mm (default: 6.4mm)
+target_label_name: 'PET_jco'  # name of the target label column in the csv files
+ct_mode: 'BONE_SEG_MASK_MULTIPLY_ONLY'
+ct_bone_seg_dilation_erosion_pixels: 7
+ct_bone_seg_dilation_alone_pixels: 2
+
+# TRANSFORM PARAMS
+augm: 1
+postfilter_fwhm_xy_mm_min: 3.0
+postfilter_fwhm_xy_mm_max: 16.6
+
+
+#normalize_mean: 0.784645979644992
+#normalize_std: 35.99184645712848
+#fixed_suv_clip: 189.74741039173838

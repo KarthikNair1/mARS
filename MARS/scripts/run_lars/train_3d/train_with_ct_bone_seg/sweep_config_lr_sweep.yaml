@@ -1,0 +1,14 @@
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/code_3d/train.py
+method: grid
+metric:
+  goal: minimize
+  name: epoch/val/loss
+parameters:
+  lr:
+    values: [0.0005, 0.001, .005, 0.01, 0.05]
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train_3d/train_with_ct_bone_seg/training_config_lr_sweep.yaml

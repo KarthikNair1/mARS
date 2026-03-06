@@ -1,0 +1,364 @@
+{'data_path_img': '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/', 'train_datapath_csv': '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/train_df.csv', 'val_datapath_csv': '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/val_df.csv', 'output': '/gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_mars_9-24-25', 'arch': 'resnet34', 'checkpoint': '/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth', 'seed_index': 0, 'run': 0, 'checkpoint_folder': '', 'resume': False, 'optimizer': 'sgd', 'lr': 0.001, 'lr_anneal': 15, 'momentum': 0.9, 'wd': 0.0001, 'batch_size': 16, 'nepochs': 40, 'workers': 6, 'augm': 0, 'balance': False, 'lr_scheduler': False, 'early_stopping': False, 'fast_dev_run': False, 'normalize': True, 'target_label_name': 'PET_jco', 'normalize_mean': None, 'normalize_std': None, 'WANDB_tags': [], 'WANDB_run_name': None}
+Datasets train:1478, val:296
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:44<00:00, 11.44s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:39<00:00, 11.55s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [0/40]	Loss: nan	AUC: 0.7872	0.7896
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:38<00:00, 11.38s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:34<00:00, 11.34s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:38<00:00, 11.50s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [1/40]	Loss: 0.582185	AUC: 0.9238	0.8534
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:34<00:00, 11.34s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:37<00:00, 11.38s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:38<00:00, 11.48s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [2/40]	Loss: 0.375260	AUC: 0.9647	0.8324
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [18:19<00:00, 11.82s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [18:27<00:00, 11.91s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:40<00:00, 11.61s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [3/40]	Loss: 0.294467	AUC: 0.9872	0.8397
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:24<00:00, 11.23s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:24<00:00, 11.23s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:36<00:00, 11.42s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:110: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig, axs = plt.subplots(1, 2, figsize=(10,5))
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [4/40]	Loss: 0.244156	AUC: 0.9944	0.7910
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [18:09<00:00, 11.71s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:26<00:00, 11.25s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:39<00:00, 11.57s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [5/40]	Loss: 0.172323	AUC: 0.9935	0.7964
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:24<00:00, 11.23s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:18<00:00, 11.16s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:36<00:00, 11.41s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [6/40]	Loss: 0.130029	AUC: 0.9962	0.8095
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:22<00:00, 11.21s/it]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:19<00:00, 11.17s/it]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:34<00:00, 11.30s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [7/40]	Loss: 0.125004	AUC: 0.9995	0.8222
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:06<00:00, 11.04s/it]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 93/93 [17:08<00:00, 11.06s/it]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [03:33<00:00, 11.23s/it]
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+/gpfs/home/kn2347/MARS/MARS/run_lars/logging_utils.py:95: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  inp_tensor = torch.tensor(val_ds[indices[i]][0])
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/_utils/gradient.py:57: UserWarning: Input Tensor 0 did not already require gradients, required_grads has been set automatically.
+  warnings.warn(
+/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/captum/attr/_core/guided_backprop_deconvnet.py:64: UserWarning: Setting backward hooks on ReLU activations.The hooks will be removed after the attribution is finished
+  warnings.warn(
+Epoch: [8/40]	Loss: 0.116224	AUC: 0.9967	0.8194
+ 26%|████████████████████████████████████▍                                                                                                        | 24/93 [04:51<13:58, 12.16s/it]
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 436, in <module>
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 257, in main
+    # loss = train(epoch, train_loader, model, criterion, optimizer)
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 389, in train
+    # print('Training\tEpoch: [{}/{}]\tBatch: [{}/{}]'.format(epoch, args.nepochs, i+1, len(loader)))
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 701, in __next__
+    data = self._next_data()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1448, in _next_data
+    idx, data = self._get_data()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1412, in _get_data
+    success, data = self._try_get_data()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1243, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/queues.py", line 113, in get
+    if not self._poll(timeout):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/connection.py", line 257, in poll
+    return self._poll(timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/connection.py", line 424, in _poll
+    r = wait([self], timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+    ready = selector.select(timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 436, in <module>
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 257, in main
+    # loss = train(epoch, train_loader, model, criterion, optimizer)
+  File "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py", line 389, in train
+    # print('Training\tEpoch: [{}/{}]\tBatch: [{}/{}]'.format(epoch, args.nepochs, i+1, len(loader)))
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 701, in __next__
+    data = self._next_data()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1448, in _next_data
+    idx, data = self._get_data()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1412, in _get_data
+    success, data = self._try_get_data()
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1243, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/queues.py", line 113, in get
+    if not self._poll(timeout):
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/connection.py", line 257, in poll
+    return self._poll(timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/connection.py", line 424, in _poll
+    r = wait([self], timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+    ready = selector.select(timeout)
+  File "/gpfs/home/kn2347/.conda/envs/myeloma6/lib/python3.10/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt

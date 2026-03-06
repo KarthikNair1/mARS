@@ -1,0 +1,36 @@
+# I/O PARAMS
+# INPUT
+data_path_img: '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/' # path to directory housing h5 files
+data_path_datafiles: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/val_df.csv' # path to directory housing datafiles (csv files)
+model_path_pattern: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_all_seeds_combine_mipviews_11-8-25/checkpoint_seed*_run*_best.pth"
+#model_path_pattern: '/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth'
+dataset_type: "val"
+#model_path_pattern: "/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth"
+
+
+# OUTPUT
+output: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/2D_dual_mipview_all_seeds_prediction"
+
+# MODEL PARAMS
+nfeat: 1024
+
+# DATA PARAMS
+normalize: true
+postfilter_fwhm_xy_mm: 6.4
+combine_mipviews: 'feature_concatenation'
+#normalize_mean: 0.6763
+#normalize_std: 1.6433
+
+# DATALOADER PARAMS
+batch_size: 128
+workers: 6
+
+# interpretability parameters
+layer_idx: 5
+
+# for selecting scans for inspection
+probabilities_aggregate_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/results/2D_dual_mipview_all_seeds_prediction/val/pred_val_mipview_aggregate.csv'
+binarization_threshold: 0.24294032599999997
+prob_mode: 'mean'
+target_label_name: 'PET_jco'
+scans_for_inspection_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/results/2D_dual_mipview_all_seeds_prediction/val/selected_scans_for_inspection.csv'
