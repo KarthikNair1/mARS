@@ -1,0 +1,9 @@
+fraction	train_size	val_size	test_size	filename
+0.125	92	148	592	train_val_test_split_trainfrac_0p125.pkl
+0.25	185	148	592	train_val_test_split_trainfrac_0p25.pkl
+0.375	277	148	592	train_val_test_split_trainfrac_0p375.pkl
+0.5	370	148	592	train_val_test_split_trainfrac_0p5.pkl
+0.625	462	148	592	train_val_test_split_trainfrac_0p625.pkl
+0.75	554	148	592	train_val_test_split_trainfrac_0p75.pkl
+0.875	647	148	592	train_val_test_split_trainfrac_0p875.pkl
+1.0	739	148	592	train_val_test_split_trainfrac_1.pkl

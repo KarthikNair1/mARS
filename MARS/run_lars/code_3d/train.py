@@ -66,6 +66,8 @@ def set_defaults_config():
         'suv_clip_threshold_max': None,
         'lr_fc': None,
         'ct_mode': None,
+        'ct_clip_threshold_low': -125,
+        'ct_clip_threshold_high': 225,
         'ct_bone_seg_dilation_erosion_pixels': None,
         'ct_bone_seg_dilation_alone_pixels': None,
         'track_input_gradients': False,
@@ -200,6 +202,8 @@ def main():
         suv_clip_threshold_min = args["suv_clip_threshold_min"],
         suv_clip_threshold_max = args["suv_clip_threshold_max"],
         ct_mode = args["ct_mode"],
+        ct_clip_threshold_low = args["ct_clip_threshold_low"],
+        ct_clip_threshold_high = args["ct_clip_threshold_high"],
         ct_bone_seg_dilation_erosion_pixels = args["ct_bone_seg_dilation_erosion_pixels"],
         ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone_pixels"]
     )
@@ -212,6 +216,8 @@ def main():
         postfilter_fwhm_xy_mm_min=None, postfilter_fwhm_xy_mm_max=None,
         fixed_suv_clip = args["fixed_suv_clip"],
         ct_mode = args["ct_mode"],
+        ct_clip_threshold_low = args["ct_clip_threshold_low"],
+        ct_clip_threshold_high = args["ct_clip_threshold_high"],
         ct_bone_seg_dilation_erosion_pixels = args["ct_bone_seg_dilation_erosion_pixels"],
         ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone_pixels"]
     )
@@ -224,6 +230,8 @@ def main():
         postfilter_fwhm_xy_mm_min=None, postfilter_fwhm_xy_mm_max=None,
         fixed_suv_clip = args["fixed_suv_clip"],
         ct_mode = args["ct_mode"],
+        ct_clip_threshold_low = args["ct_clip_threshold_low"],
+        ct_clip_threshold_high = args["ct_clip_threshold_high"],
         ct_bone_seg_dilation_erosion_pixels = args["ct_bone_seg_dilation_erosion_pixels"],
         ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone_pixels"]
     )

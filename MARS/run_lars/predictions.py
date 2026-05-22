@@ -42,7 +42,8 @@ def set_defaults_config():
         'postfilter_fwhm_xy_mm': None,
         'normalize_mean': None,
         'normalize_std': None,
-        'combine_mipviews': None
+        'combine_mipviews': None,
+        'force_train_mode': False
     }
 
     for key, value in default_dict.items():
@@ -53,6 +54,13 @@ def main():
     # Get user input
     global args
     args = load_config()
+
+    # allow command line overrides
+    if '--model_path_pattern' in sys.argv:
+        args['model_path_pattern'] = sys.argv[sys.argv.index('--model_path_pattern') + 1]
+    if '--output' in sys.argv:
+        args['output'] = sys.argv[sys.argv.index('--output') + 1]
+
     set_defaults_config()
 
     model_path_pattern = args['model_path_pattern']
@@ -142,7 +150,11 @@ def predict(dset, model):
 
 def test(loader, model):
     # Set model in test mode
-    model.eval()
+    if args["force_train_mode"]:
+        print("Warning: Forcing model to be in train mode for evaluation.")
+        model.train()
+    else:
+        model.eval()
     # Initialize probability vector
     probs = torch.FloatTensor(len(loader.dataset)).cuda()
     # Initialize features

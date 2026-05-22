@@ -1,0 +1,404 @@
+_wandb:
+    value:
+        cli_version: 0.22.0
+        code_path: code/MARS/run_lars/train.py
+        e:
+            e76zjdoavnkt7x1uizkl3rbq9ad5d38n:
+                args:
+                    - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/train_2D_single_mipview_with_auxiliary/training_config.yaml
+                    - --seed_index
+                    - "0"
+                    - --checkpoint
+                    - /gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth
+                codePath: MARS/run_lars/train.py
+                codePathLocal: run_lars/train.py
+                cpu_count: 48
+                cpu_count_logical: 48
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "210241560576"
+                        used: "12460670976"
+                email: nair.karthik00@gmail.com
+                executable: /gpfs/home/kn2347/.conda/envs/myeloma6/bin/python
+                git:
+                    commit: 3d1c10e524238d023ce39206899817befd0e405c
+                    remote: https://github.com/KarthikNair1/mARS.git
+                gpu: NVIDIA A100 80GB PCIe
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 6912
+                      memoryTotal: "85899345920"
+                      name: NVIDIA A100 80GB PCIe
+                      uuid: GPU-37d83584-0ae5-5e56-5de5-a2a166bd0e2d
+                host: a100-4018
+                memory:
+                    total: "540465025024"
+                os: Linux-4.18.0-477.27.1.el8_8.x86_64-x86_64-with-glibc2.28
+                program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+                python: CPython 3.10.18
+                root: /gpfs/home/kn2347/MARS/MARS
+                slurm:
+                    job_id: "20773419"
+                startedAt: "2026-04-21T20:33:47.977448Z"
+                writerId: e76zjdoavnkt7x1uizkl3rbq9ad5d38n
+        m:
+            - "2": mipview/*
+              "5": 2
+              "6":
+                - 1
+              "7": []
+            - "1": epoch
+              "6": []
+              "7": []
+            - "2": epoch/train/*
+              "5": 2
+              "6":
+                - 1
+              "7": []
+            - "2": step/train/*
+              "5": 5
+              "6":
+                - 1
+              "7": []
+            - "1": train_step
+              "6": []
+              "7": []
+            - "2": epoch/val/*
+              "5": 2
+              "6":
+                - 1
+              "7": []
+        python_version: 3.10.18
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 53
+            "2":
+                - 1
+                - 5
+                - 41
+                - 53
+            "3":
+                - 1
+                - 7
+                - 15
+                - 16
+            "4": 3.10.18
+            "5": 0.22.0
+            "12": 0.22.0
+            "13": linux-x86_64
+        visualize:
+            mipview/max_val_conf_mat:
+                panel_config:
+                    fieldSettings:
+                        Actual: Actual
+                        Predicted: Predicted
+                        nPredictions: nPredictions
+                    panelDefId: wandb/confusion_matrix/v1
+                    stringSettings:
+                        title: Confusion Matrix Curve
+                    transform:
+                        name: tableWithLeafColNames
+                    userQuery:
+                        queryFields:
+                            - args:
+                                - name: runSets
+                                  value: ${runSets}
+                              fields:
+                                - fields: []
+                                  name: id
+                                - fields: []
+                                  name: name
+                                - fields: []
+                                  name: _defaultColorIndex
+                                - args:
+                                    - name: tableKey
+                                      value: mipview/max_val_conf_mat_table
+                                  fields: []
+                                  name: summaryTable
+                              name: runSets
+                panel_type: Vega2
+            mipview/max_val_roc:
+                panel_config:
+                    fieldSettings:
+                        class: class
+                        x: fpr
+                        "y": tpr
+                    panelDefId: wandb/area-under-curve/v0
+                    stringSettings:
+                        title: ROC Curve
+                        x-axis-title: False positive rate
+                        y-axis-title: True positive rate
+                    transform:
+                        name: tableWithLeafColNames
+                    userQuery:
+                        queryFields:
+                            - args:
+                                - name: runSets
+                                  value: ${runSets}
+                              fields:
+                                - fields: []
+                                  name: id
+                                - fields: []
+                                  name: name
+                                - fields: []
+                                  name: _defaultColorIndex
+                                - args:
+                                    - name: tableKey
+                                      value: mipview/max_val_roc_table
+                                  fields: []
+                                  name: summaryTable
+                              name: runSets
+                panel_type: Vega2
+            mipview/mean_val_conf_mat:
+                panel_config:
+                    fieldSettings:
+                        Actual: Actual
+                        Predicted: Predicted
+                        nPredictions: nPredictions
+                    panelDefId: wandb/confusion_matrix/v1
+                    stringSettings:
+                        title: Confusion Matrix Curve
+                    transform:
+                        name: tableWithLeafColNames
+                    userQuery:
+                        queryFields:
+                            - args:
+                                - name: runSets
+                                  value: ${runSets}
+                              fields:
+                                - fields: []
+                                  name: id
+                                - fields: []
+                                  name: name
+                                - fields: []
+                                  name: _defaultColorIndex
+                                - args:
+                                    - name: tableKey
+                                      value: mipview/mean_val_conf_mat_table
+                                  fields: []
+                                  name: summaryTable
+                              name: runSets
+                panel_type: Vega2
+            mipview/mean_val_roc:
+                panel_config:
+                    fieldSettings:
+                        class: class
+                        x: fpr
+                        "y": tpr
+                    panelDefId: wandb/area-under-curve/v0
+                    stringSettings:
+                        title: ROC Curve
+                        x-axis-title: False positive rate
+                        y-axis-title: True positive rate
+                    transform:
+                        name: tableWithLeafColNames
+                    userQuery:
+                        queryFields:
+                            - args:
+                                - name: runSets
+                                  value: ${runSets}
+                              fields:
+                                - fields: []
+                                  name: id
+                                - fields: []
+                                  name: name
+                                - fields: []
+                                  name: _defaultColorIndex
+                                - args:
+                                    - name: tableKey
+                                      value: mipview/mean_val_roc_table
+                                  fields: []
+                                  name: summaryTable
+                              name: runSets
+                panel_type: Vega2
+            val_conf_mat:
+                panel_config:
+                    fieldSettings:
+                        Actual: Actual
+                        Predicted: Predicted
+                        nPredictions: nPredictions
+                    panelDefId: wandb/confusion_matrix/v1
+                    stringSettings:
+                        title: Confusion Matrix Curve
+                    transform:
+                        name: tableWithLeafColNames
+                    userQuery:
+                        queryFields:
+                            - args:
+                                - name: runSets
+                                  value: ${runSets}
+                              fields:
+                                - fields: []
+                                  name: id
+                                - fields: []
+                                  name: name
+                                - fields: []
+                                  name: _defaultColorIndex
+                                - args:
+                                    - name: tableKey
+                                      value: val_conf_mat_table
+                                  fields: []
+                                  name: summaryTable
+                              name: runSets
+                panel_type: Vega2
+            val_roc:
+                panel_config:
+                    fieldSettings:
+                        class: class
+                        x: fpr
+                        "y": tpr
+                    panelDefId: wandb/area-under-curve/v0
+                    stringSettings:
+                        title: ROC Curve
+                        x-axis-title: False positive rate
+                        y-axis-title: True positive rate
+                    transform:
+                        name: tableWithLeafColNames
+                    userQuery:
+                        queryFields:
+                            - args:
+                                - name: runSets
+                                  value: ${runSets}
+                              fields:
+                                - fields: []
+                                  name: id
+                                - fields: []
+                                  name: name
+                                - fields: []
+                                  name: _defaultColorIndex
+                                - args:
+                                    - name: tableKey
+                                      value: val_roc_table
+                                  fields: []
+                                  name: summaryTable
+                              name: runSets
+                panel_type: Vega2
+BLUR_kernel_size:
+    value: 5
+BLUR_sigma_high:
+    value: 2
+BLUR_sigma_low:
+    value: 0.1
+WANDB_run_name:
+    value: null
+WANDB_tags:
+    value:
+        - postfilter_variation
+        - flip_horizontal
+        - cosine_warm_restarts
+        - auxiliary_heads
+arch:
+    value: resnet34
+augm:
+    value: 3
+auxiliary_head_label_names:
+    value:
+        - high_renal_uptake
+        - high_bladder_uptake
+        - injection_site_uptake
+        - bowel_uptake
+auxiliary_loss_scale:
+    value: 0.25
+balance:
+    value: false
+batch_size:
+    value: 128
+checkpoint:
+    value: /gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth
+checkpoint_folder:
+    value: ""
+combine_mipviews:
+    value: null
+ct_bone_seg_dilation_alone:
+    value: null
+ct_bone_seg_dilation_erosion:
+    value: null
+ct_mode:
+    value: null
+data_path_img:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/
+early_stopping:
+    value: false
+eval_on_fraction_of_val:
+    value: null
+fast_dev_run:
+    value: false
+feature_concat_divide_weights:
+    value: true
+freeze_image_encoder:
+    value: false
+log_example_images:
+    value: false
+log_mipview_aggregation:
+    value: true
+lr:
+    value: 0.001
+lr_anneal:
+    value: 15
+lr_fc:
+    value: null
+lr_scheduler:
+    value: cosine_with_warm_restarts
+lr_scheduler_cycle_length:
+    value: 5
+lr_scheduler_min_lr:
+    value: 1e-06
+lr_scheduler_patience:
+    value: 2
+lr_scheduler_reduction_factor:
+    value: 0.1
+lr_scheduler_warm_restarts_multiplier:
+    value: 2
+momentum:
+    value: 0.9
+nepochs:
+    value: 30
+normalize:
+    value: true
+normalize_mean:
+    value: null
+normalize_std:
+    value: null
+optimizer:
+    value: sgd
+output:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_2D_single_mipview_with_auxiliary/
+postfilter_fwhm_xy_mm:
+    value: 6.4
+postfilter_fwhm_xy_mm_max:
+    value: 35
+postfilter_fwhm_xy_mm_min:
+    value: 3
+resume:
+    value: false
+run:
+    value: 0
+run_eval_every_n_epochs:
+    value: null
+seed_index:
+    value: 0
+skip_eval_on_training:
+    value: false
+skip_eval_on_validation:
+    value: false
+suv_clip_threshold_max:
+    value: null
+suv_clip_threshold_min:
+    value: null
+target_label_name:
+    value: PET_jco
+train_datapath_csv:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/aux_labels/train_df_with_auxiliary_labels.csv
+train_test_split_pkl:
+    value: null
+val_datapath_csv:
+    value: /gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/aux_labels/val_df_with_auxiliary_labels.csv
+wd:
+    value: 0.01
+workers:
+    value: 6

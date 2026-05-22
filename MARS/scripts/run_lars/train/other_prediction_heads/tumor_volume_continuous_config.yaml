@@ -1,0 +1,63 @@
+# Config specifically for continuous tumor-volume auxiliary head (log-space MSE)
+
+# I/O PARAMS
+# INPUT
+data_path_img: '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/'
+train_datapath_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/aux_labels/train_df_with_auxiliary_labels_and_tumor_volume.csv'
+val_datapath_csv: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/aux_labels/val_df_with_auxiliary_labels_and_tumor_volume.csv'
+
+# OUTPUT
+output: '/gpfs/data/mayerhoeferlab/projects/myeloma/results/train/other_prediction_heads/tumor_volume_continuous'
+
+# MODEL PARAMS
+arch: 'resnet34'
+run: 0
+checkpoint_folder: ''
+resume: false
+
+# OPTIMIZATION PARAMS
+optimizer: 'sgd'
+lr: 0.001
+lr_anneal: 15
+momentum: 0.9
+wd: 0.01
+
+# TRAINING PARAMS
+batch_size: 128
+nepochs: 30
+workers: 6
+balance: false
+early_stopping: false
+fast_dev_run: false
+skip_eval_on_training: false
+
+# LR SCHEDULING PARAMS
+lr_scheduler: 'cosine_with_warm_restarts'
+lr_scheduler_min_lr: 0.000001
+lr_scheduler_cycle_length: 5
+lr_scheduler_warm_restarts_multiplier: 2
+
+# LOGGING PARAMS
+log_mipview_aggregation: true
+log_example_images: false
+WANDB_tags: ['auxiliary_regression', 'log_mse']
+
+# DATA PARAMS
+normalize: true
+postfilter_fwhm_xy_mm: 6.4
+target_label_name: 'PET_jco'
+auxiliary_head_label_names: ['tumor_volume']
+auxiliary_head_loss_type: 'log_mse'  # use log-space MSE: loss = MSE(log1p(target), prediction)
+auxiliary_loss_scale: 0.025
+
+# TRANSFORM PARAMS
+augm: 3
+postfilter_fwhm_xy_mm_min: 3.0
+postfilter_fwhm_xy_mm_max: 35.0
+
+# NOTES:
+# - This config trains a single auxiliary head for the continuous 'tumor_volume' variable using a
+#   log1p transform inside the loss (see utils.compute_multitask_loss with 'log_mse').
+# - The dataset returns raw tumor volumes; the model outputs a scalar prediction trained on log1p(target).
+# - If you prefer to preprocess targets in the dataset (explicitly transforming and storing log values),
+#   consider adding a dataset-side flag and set auxiliary_head_loss_type to 'mse' instead.

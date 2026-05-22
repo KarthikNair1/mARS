@@ -1,0 +1,9 @@
+requested_train_examples	train_size	val_size	test_size	train_label_counts	filename
+5	5	148	592	0.0:3;1.0:2	train_val_test_split_trainN_5.pkl
+10	10	148	592	0.0:5;1.0:5	train_val_test_split_trainN_10.pkl
+21	21	148	592	0.0:11;1.0:10	train_val_test_split_trainN_21.pkl
+43	43	148	592	0.0:22;1.0:21	train_val_test_split_trainN_43.pkl
+87	87	148	592	0.0:44;1.0:43	train_val_test_split_trainN_87.pkl
+177	177	148	592	0.0:89;1.0:88	train_val_test_split_trainN_177.pkl
+362	362	148	592	0.0:181;1.0:181	train_val_test_split_trainN_362.pkl
+739	739	148	592	0.0:485;1.0:254	train_val_test_split_trainN_739.pkl

@@ -20,11 +20,12 @@ try:
 except:
     from MARS.run_lars import utils
 
-def get_datasets(dataset_type, norm=None,transform=None, data_path_img=None, data_path=None,
+def get_datasets(dataset_type, norm=None,transform=None, data_path_img=None, data_path=None, subset_ids=None,
                 postfilter_fwhm_xy_mm=None, normalize_mean=None, normalize_std=None, target_label_name = 'PET_jco',
                 postfilter_fwhm_xy_mm_min=None, postfilter_fwhm_xy_mm_max=None,
                 suv_clip_threshold_min=None, suv_clip_threshold_max=None, combine_mipviews = None,
-                ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None):
+                ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
+                auxiliary_label_names=None):
     df = pd.read_csv(data_path)
 
     if combine_mipviews is None:
@@ -32,6 +33,10 @@ def get_datasets(dataset_type, norm=None,transform=None, data_path_img=None, dat
         df['mipview'] = ['cor']*int(len(df)/2) + ['sag']*int(len(df)/2)
     
     assert dataset_type in ['train','val','test']
+
+    # subset df using subset_ids
+    if subset_ids is not None:
+        df = df[df['accession'].isin(subset_ids)].reset_index(drop=True)
 
     if dataset_type == 'train':
         dset = dataset(df, data_path_img=data_path_img, data_path=data_path, 
@@ -45,7 +50,8 @@ def get_datasets(dataset_type, norm=None,transform=None, data_path_img=None, dat
                        combine_mipviews = combine_mipviews,
                        ct_mode = ct_mode,
                        ct_bone_seg_dilation_erosion_pixels = ct_bone_seg_dilation_erosion_pixels,
-                       ct_bone_seg_dilation_alone_pixels = ct_bone_seg_dilation_alone_pixels)
+                       ct_bone_seg_dilation_alone_pixels = ct_bone_seg_dilation_alone_pixels,
+                       auxiliary_label_names = auxiliary_label_names)
         
     elif dataset_type in ['val', 'test']:
         dset = dataset_center(df, data_path_img=data_path_img, data_path=data_path, 
@@ -55,14 +61,16 @@ def get_datasets(dataset_type, norm=None,transform=None, data_path_img=None, dat
                              combine_mipviews = combine_mipviews,
                              ct_mode = ct_mode,
                              ct_bone_seg_dilation_erosion_pixels = ct_bone_seg_dilation_erosion_pixels,
-                             ct_bone_seg_dilation_alone_pixels = ct_bone_seg_dilation_alone_pixels)
+                             ct_bone_seg_dilation_alone_pixels = ct_bone_seg_dilation_alone_pixels,
+                             auxiliary_label_names = auxiliary_label_names)
     
     return dset
   
 class dataset(torch.utils.data.Dataset):
     def __init__(self, df, data_path_img, data_path, norm=False, transform=None, postfilter_fwhm_xy_mm=None, normalize_mean=None, normalize_std=None, target_label_name = 'PET_jco',
                  postfilter_fwhm_xy_mm_min=None, postfilter_fwhm_xy_mm_max=None, suv_clip_threshold_min=None, suv_clip_threshold_max=None, combine_mipviews=None,
-                 ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None):
+                 ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
+                 auxiliary_label_names=None):
         self.df = df.copy()
         self.transform = transform
         self.norm = norm
@@ -77,6 +85,7 @@ class dataset(torch.utils.data.Dataset):
         self.suv_clip_threshold_min = suv_clip_threshold_min
         self.suv_clip_threshold_max = suv_clip_threshold_max
         self.combine_mipviews = combine_mipviews
+        self.auxiliary_label_names = auxiliary_label_names or []
 
         if ct_mode is not None:
             assert ct_mode in ['BONE_SEG_MASK_MULTIPLY']
@@ -107,7 +116,7 @@ class dataset(torch.utils.data.Dataset):
             suv_clip_threshold = np.random.uniform(self.suv_clip_threshold_min, self.suv_clip_threshold_max)
         else:
             suv_clip_threshold = None
-
+        
         # Read image
         if self.combine_mipviews == 'stack' or self.combine_mipviews == 'feature_concatenation':
             cor = get_image(tmp, 'cor', self.norm, self.transform, self.data_path_img, self.data_path, fwhm_xy_mm, self.normalize_mean, self.normalize_std, suv_clip_threshold, ct_mode=self.ct_mode, ct_bone_seg_dilation_erosion_pixels=self.ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=self.ct_bone_seg_dilation_alone_pixels)
@@ -116,7 +125,23 @@ class dataset(torch.utils.data.Dataset):
         else:
             img = get_image(tmp, tmp.mipview, self.norm, self.transform, self.data_path_img, self.data_path, fwhm_xy_mm, self.normalize_mean, self.normalize_std, suv_clip_threshold, ct_mode=self.ct_mode, ct_bone_seg_dilation_erosion_pixels=self.ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=self.ct_bone_seg_dilation_alone_pixels)
             
-        return img, tmp[self.target_label_name]
+        main_label = tmp[self.target_label_name]
+
+        if len(self.auxiliary_label_names) == 0:
+            return img, main_label
+
+        aux_labels = []
+        for label_name in self.auxiliary_label_names:
+            aux_val = tmp.get(label_name, np.nan)
+            if pd.isna(aux_val):
+                aux_val = np.nan
+            aux_labels.append(aux_val)
+
+        targets = {
+            'main': main_label,
+            'aux': np.array(aux_labels, dtype=np.float32)
+        }
+        return img, targets
     
     def __len__(self):
         return len(self.df)
@@ -124,7 +149,8 @@ class dataset(torch.utils.data.Dataset):
 class dataset_center(torch.utils.data.Dataset):
     def __init__(self, df, data_path_img, data_path, norm=False, transform=None, postfilter_fwhm_xy_mm=None, normalize_mean=None, normalize_std=None, target_label_name = 'PET_jco',
                     combine_mipviews = None,
-                    ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None):
+                    ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
+                    auxiliary_label_names=None):
         self.df = df.copy()
         self.transform = transform
         self.norm = norm
@@ -135,6 +161,7 @@ class dataset_center(torch.utils.data.Dataset):
         self.normalize_std = normalize_std
         self.target_label_name = target_label_name
         self.combine_mipviews = combine_mipviews
+        self.auxiliary_label_names = auxiliary_label_names or []
 
         if ct_mode is not None:
             assert ct_mode in ['BONE_SEG_MASK_MULTIPLY']
@@ -160,7 +187,23 @@ class dataset_center(torch.utils.data.Dataset):
             img = torch.cat([cor, sag], dim=0)
         else:
             img = get_image_center(tmp, tmp.mipview, self.norm, self.transform, self.data_path_img, self.data_path, fwhm_xy_mm, self.normalize_mean, self.normalize_std, ct_mode=self.ct_mode, ct_bone_seg_dilation_erosion_pixels=self.ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=self.ct_bone_seg_dilation_alone_pixels)
-        return img, tmp[self.target_label_name]
+        main_label = tmp[self.target_label_name]
+
+        if len(self.auxiliary_label_names) == 0:
+            return img, main_label
+
+        aux_labels = []
+        for label_name in self.auxiliary_label_names:
+            aux_val = tmp.get(label_name, np.nan)
+            if pd.isna(aux_val):
+                aux_val = np.nan
+            aux_labels.append(aux_val)
+
+        targets = {
+            'main': main_label,
+            'aux': np.array(aux_labels, dtype=np.float32)
+        }
+        return img, targets
     
     def __len__(self):
         return len(self.df)

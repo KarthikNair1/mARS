@@ -25,7 +25,8 @@ def get_datasets_3d(dataset_type, transform=None, norm=None, balance=False, data
                     postfilter_fwhm_xy_mm_min=None, postfilter_fwhm_xy_mm_max=None,
                     fixed_suv_clip=None,
                     suv_clip_threshold_min=None, suv_clip_threshold_max=None,
-                    ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None):
+                    ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
+                    ct_clip_threshold_low=-125, ct_clip_threshold_high=225):
     
     assert balance == False, "balance not implemented"
     df = pd.read_csv(data_path)
@@ -44,7 +45,8 @@ def get_datasets_3d(dataset_type, transform=None, norm=None, balance=False, data
                           fixed_suv_clip=fixed_suv_clip,
                           suv_clip_threshold_min=suv_clip_threshold_min,
                           suv_clip_threshold_max=suv_clip_threshold_max,
-                          ct_mode=ct_mode, ct_bone_seg_dilation_erosion_pixels=ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=ct_bone_seg_dilation_alone_pixels
+                          ct_mode=ct_mode, ct_bone_seg_dilation_erosion_pixels=ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=ct_bone_seg_dilation_alone_pixels,
+                          ct_clip_threshold_low=ct_clip_threshold_low, ct_clip_threshold_high=ct_clip_threshold_high
         )
     elif dataset_type in ['val', 'test']:
         dset = dataset_3d_center(df, transform=transform, norm=norm, 
@@ -55,7 +57,8 @@ def get_datasets_3d(dataset_type, transform=None, norm=None, balance=False, data
                                  postfilter_fwhm_xy_mm_min=None,
                                  postfilter_fwhm_xy_mm_max=None,
                                  fixed_suv_clip=fixed_suv_clip,
-                                 ct_mode=ct_mode, ct_bone_seg_dilation_erosion_pixels=ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=ct_bone_seg_dilation_alone_pixels
+                                 ct_mode=ct_mode, ct_bone_seg_dilation_erosion_pixels=ct_bone_seg_dilation_erosion_pixels, ct_bone_seg_dilation_alone_pixels=ct_bone_seg_dilation_alone_pixels,
+                                 ct_clip_threshold_low=ct_clip_threshold_low, ct_clip_threshold_high=ct_clip_threshold_high
         )
     else:
         assert False, 'dataset_type not recognized'
@@ -100,8 +103,10 @@ def get_bbox(img, ct_mode=None, fixed_bbox=None):
     zmin, zmax = min(np.where(rows)[1]), max(np.where(rows)[1])
     return img[rmin:rmax, cmin:cmax, zmin:zmax], (rmin, rmax, cmin, cmax, zmin, zmax)
 
-def pad2square_random(image, size):
-    out = np.zeros(size)
+def pad2square_random(image, size, is_ct):
+    #out = np.zeros(size)
+    out = np.full(size, -1024.0) if is_ct else np.zeros(size)
+
     # Sample offset
     maxr = size[0] - image.shape[0]
     maxc = size[1] - image.shape[1]
@@ -113,9 +118,9 @@ def pad2square_random(image, size):
     out[offsetr:offsetr+image.shape[0], offsetc:offsetc+image.shape[1], offsetz:offsetz+image.shape[2]] = image
     return out, (offsetr, offsetc, offsetz)
 
-def pad2square_center(image, size):
+def pad2square_center(image, size, is_ct):
     # Place image
-    out = np.zeros(size)
+    out = np.full(size, -1024.0) if is_ct else np.zeros(size)
 
     x1 = int((size[0]-image.shape[0])/2)
     y1 = int((size[1]-image.shape[1])/2)
@@ -123,19 +128,20 @@ def pad2square_center(image, size):
 
     out[x1:x1+image.shape[0],y1:y1+image.shape[1],z1:z1+image.shape[2]] = image
     return out, (x1, y1, z1)
-def pad2square_fixed(image, size, offset):
+def pad2square_fixed(image, size, offset, is_ct):
     # offset is tuple(offsetR, offsetC, offsetZ)
-    out = np.zeros(size)
+    out = np.full(size, -1024.0) if is_ct else np.zeros(size)
     out[offset[0]:offset[0]+image.shape[0], offset[1]:offset[1]+image.shape[1], offset[2]:offset[2]+image.shape[2]] = image
     return out, offset
 
 def get_image(df, transform, norm, data_path_img, data_path, fwhm_xy_mm = None, normalize_mean=None, normalize_std=None, suv_clip_threshold = None, 
               ct_mode = None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
-              fixed_bbox = None, fixed_offset = None):
+              fixed_bbox = None, fixed_offset = None,
+              ct_clip_threshold_low=-125, ct_clip_threshold_high=225):
     
     image_size = [250,250,300] 
     if ct_mode == 'CT':
-        data_path_ct = data_path_img
+        data_path_ct = data_path_img.replace('images_h5', 'images_h5_aligned_ct')
         f = h5py.File(os.path.join(data_path_ct,df.fullfile_ct), "r")
         img = f['image']
     elif ct_mode is not None and ct_mode.startswith('BONE_SEG'):
@@ -175,7 +181,7 @@ def get_image(df, transform, norm, data_path_img, data_path, fwhm_xy_mm = None, 
     pixel_size_iso = [3.27,3.27,3.27]
     zoom = ps / pixel_size_iso
 
-    img = scipy.ndimage.zoom(img, zoom, output=None, order=1 if ct_mode is None else 0, 
+    img = scipy.ndimage.zoom(img, zoom, output=None, order=3 if ct_mode is None else 0 if 'BONE_SEG' in ct_mode else 1, 
                 mode='constant', cval=-1024.0 if ct_mode=='CT' else 0.0, prefilter=True, grid_mode=False)
     
     # Find bbox
@@ -199,13 +205,23 @@ def get_image(df, transform, norm, data_path_img, data_path, fwhm_xy_mm = None, 
 
     # Pad randomly
     if fixed_offset is not None:
-        img, offset = pad2square_fixed(img, image_size, fixed_offset)
+        img, offset = pad2square_fixed(img, image_size, fixed_offset, is_ct=(ct_mode=='CT'))
     else:
-        img, offset = pad2square_random(img, image_size)
+        img, offset = pad2square_random(img, image_size, is_ct=(ct_mode=='CT'))
 
     # Norm
     if norm:
-        img = clip_and_normalize_SUVimage(img, normalize_mean, normalize_std, suv_clip_threshold=suv_clip_threshold)
+        if ct_mode == 'CT':
+            img = clip_and_standardize_CTimage(
+                img,
+                clip_threshold_low=ct_clip_threshold_low,
+                clip_threshold_high=ct_clip_threshold_high,
+            )
+        elif ct_mode is not None and 'BONE_SEG' in ct_mode:
+            # no normalization, as it is binary
+            pass
+        else:
+            img = clip_and_normalize_SUVimage(img, normalize_mean, normalize_std, suv_clip_threshold=suv_clip_threshold)
     # Make Tensors
     img = torch.FloatTensor(img).unsqueeze(0)
     if transform is not None:
@@ -214,10 +230,11 @@ def get_image(df, transform, norm, data_path_img, data_path, fwhm_xy_mm = None, 
     return img, bbox, offset
 
 def get_image_center(df, transform, norm, data_path_img, data_path, fwhm_xy_mm = None, normalize_mean=None, normalize_std=None, suv_clip_threshold = None,
-              ct_mode = None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None, fixed_bbox = None):
+              ct_mode = None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None, fixed_bbox = None,
+              ct_clip_threshold_low=-125, ct_clip_threshold_high=225):
     image_size = [250,250,300] # max 213x213x300
     if ct_mode == 'CT':
-        data_path_ct = data_path_img
+        data_path_ct = data_path_img.replace('images_h5', 'images_h5_aligned_ct')
         f = h5py.File(os.path.join(data_path_ct,df.fullfile_ct), "r")
         img = f['image']
     elif ct_mode is not None and ct_mode.startswith('BONE_SEG'):
@@ -257,7 +274,7 @@ def get_image_center(df, transform, norm, data_path_img, data_path, fwhm_xy_mm =
     pixel_size_iso = [3.27,3.27,3.27]
     zoom = ps / pixel_size_iso
 
-    img = scipy.ndimage.zoom(img, zoom, output=None, order=1 if ct_mode is None else 0, 
+    img = scipy.ndimage.zoom(img, zoom, output=None, order=3 if ct_mode is None else 0 if 'BONE_SEG' in ct_mode else 1,
                 mode='constant', cval=-1024.0 if ct_mode=='CT' else 0.0, prefilter=True, grid_mode=False)
     # Find bbox
     if ct_mode is None:
@@ -273,11 +290,21 @@ def get_image_center(df, transform, norm, data_path_img, data_path, fwhm_xy_mm =
             img = np.take(img, indices = range(img.shape[longest_dimension] - 300, img.shape[longest_dimension]), axis=longest_dimension)
         else:
             img = np.take(img, indices = range(img.shape[longest_dimension] - 300, img.shape[longest_dimension]), axis=longest_dimension)
-    img, offset = pad2square_center(img, image_size)
+    img, offset = pad2square_center(img, image_size, is_ct = (ct_mode=='CT'))
 
     # Norm
     if norm:
-        img = clip_and_normalize_SUVimage(img, normalize_mean, normalize_std, suv_clip_threshold=suv_clip_threshold)
+        if ct_mode == 'CT':
+            img = clip_and_standardize_CTimage(
+                img,
+                clip_threshold_low=ct_clip_threshold_low,
+                clip_threshold_high=ct_clip_threshold_high,
+            )
+        elif ct_mode is not None and 'BONE_SEG' in ct_mode:
+            # no normalization, as it is binary
+            pass
+        else:
+            img = clip_and_normalize_SUVimage(img, normalize_mean, normalize_std, suv_clip_threshold=suv_clip_threshold)
     # Make Tensors
     img = torch.FloatTensor(img).unsqueeze(0)
     if transform is not None:
@@ -291,7 +318,6 @@ def get_image_sizes(size):
     return img
 
 def clip_and_normalize_SUVimage(img, normalize_mean=None, normalize_std=None, suv_clip_threshold=None):
-    #2D images (sag + cor): 
     if (normalize_mean is not None) and (normalize_std is not None):
         mu = normalize_mean
         std = normalize_std
@@ -305,7 +331,15 @@ def clip_and_normalize_SUVimage(img, normalize_mean=None, normalize_std=None, su
         q   = 60.00
     
     img = np.clip(img,0.,q)
+
     return (img-mu)/std
+
+def clip_and_standardize_CTimage(img, clip_threshold_low = -125, clip_threshold_high = 225): # these thresholds are per the LARS lancet paper (described in supplemental)
+    img = np.clip(img, clip_threshold_low, clip_threshold_high)
+
+    # standardize to [0,1]
+    img = (img - clip_threshold_low) / (clip_threshold_high - clip_threshold_low)
+    return img
    
 class dataset_3d(torch.utils.data.Dataset):
     def __init__(self, df, transform=None, norm=False, 
@@ -318,7 +352,8 @@ class dataset_3d(torch.utils.data.Dataset):
                 fixed_suv_clip=None,
                 suv_clip_threshold_min=None,
                 suv_clip_threshold_max=None,
-                ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None):
+                ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
+                ct_clip_threshold_low=-125, ct_clip_threshold_high=225):
         
         self.df = df.copy()
         self.transform = transform
@@ -334,6 +369,8 @@ class dataset_3d(torch.utils.data.Dataset):
         self.fixed_suv_clip = fixed_suv_clip
         self.suv_clip_threshold_min = suv_clip_threshold_min
         self.suv_clip_threshold_max = suv_clip_threshold_max
+        self.ct_clip_threshold_low = ct_clip_threshold_low
+        self.ct_clip_threshold_high = ct_clip_threshold_high
 
         if ct_mode is not None:
             assert ct_mode in ['CT', 'BONE_SEG', 'BONE_SEG_MASK_MULTIPLY', 'BONE_SEG_MASK_MULTIPLY_ONLY']
@@ -371,17 +408,19 @@ class dataset_3d(torch.utils.data.Dataset):
                         data_path_img=self.data_path_img, data_path=self.data_path, 
                         fwhm_xy_mm=fwhm_xy_mm, 
                         normalize_mean=self.normalize_mean, normalize_std=self.normalize_std,
-                        suv_clip_threshold=suv_clip_threshold, ct_mode = None)
+                        suv_clip_threshold=suv_clip_threshold, ct_mode = None,
+                        ct_clip_threshold_low=self.ct_clip_threshold_low, ct_clip_threshold_high=self.ct_clip_threshold_high)
         
         # if we are stacking the CT, read and stack
         if self.ct_mode is not None:
-            ct_img, _, _ = get_image(tmp, transform=self.transform, norm=False, 
+            ct_img, _, _ = get_image(tmp, transform=self.transform, norm=self.norm, 
                             data_path_img=self.data_path_img, data_path=self.data_path, 
                             fwhm_xy_mm=None, 
                             normalize_mean=None, normalize_std=None,
                             suv_clip_threshold=None, ct_mode = self.ct_mode, ct_bone_seg_dilation_erosion_pixels=self.ct_bone_seg_dilation_erosion_pixels,
                             ct_bone_seg_dilation_alone_pixels=self.ct_bone_seg_dilation_alone_pixels,
-                            fixed_bbox=bbox, fixed_offset=offset)
+                            fixed_bbox=bbox, fixed_offset=offset,
+                            ct_clip_threshold_low=self.ct_clip_threshold_low, ct_clip_threshold_high=self.ct_clip_threshold_high)
 
             if self.ct_mode.startswith('BONE_SEG_MASK_MULTIPLY'):
                 ct_img = ct_img * img
@@ -405,7 +444,8 @@ class dataset_3d_center(torch.utils.data.Dataset):
                 postfilter_fwhm_xy_mm_min=None,
                 postfilter_fwhm_xy_mm_max=None,
                 fixed_suv_clip=None,
-                ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None):
+                ct_mode=None, ct_bone_seg_dilation_erosion_pixels=None, ct_bone_seg_dilation_alone_pixels=None,
+                ct_clip_threshold_low=-125, ct_clip_threshold_high=225):
         self.df = df.copy()
         self.transform = transform
         self.norm = norm
@@ -418,6 +458,8 @@ class dataset_3d_center(torch.utils.data.Dataset):
         self.postfilter_fwhm_xy_mm_min = postfilter_fwhm_xy_mm_min
         self.postfilter_fwhm_xy_mm_max = postfilter_fwhm_xy_mm_max
         self.fixed_suv_clip = fixed_suv_clip
+        self.ct_clip_threshold_low = ct_clip_threshold_low
+        self.ct_clip_threshold_high = ct_clip_threshold_high
         
         if ct_mode is not None:
             assert ct_mode in ['CT', 'BONE_SEG', 'BONE_SEG_MASK_MULTIPLY', 'BONE_SEG_MASK_MULTIPLY_ONLY']
@@ -445,16 +487,18 @@ class dataset_3d_center(torch.utils.data.Dataset):
                         data_path_img=self.data_path_img, data_path=self.data_path, 
                         fwhm_xy_mm=fwhm_xy_mm, 
                         normalize_mean=self.normalize_mean, normalize_std=self.normalize_std,
-                        suv_clip_threshold=suv_clip_threshold, ct_mode = None)
+                        suv_clip_threshold=suv_clip_threshold, ct_mode = None,
+                        ct_clip_threshold_low=self.ct_clip_threshold_low, ct_clip_threshold_high=self.ct_clip_threshold_high)
         # if we are stacking the CT, read and stack
         if self.ct_mode is not None:
-            ct_img, _, _ = get_image_center(tmp, transform=self.transform, norm=False, 
+            ct_img, _, _ = get_image_center(tmp, transform=self.transform, norm=self.norm, 
                             data_path_img=self.data_path_img, data_path=self.data_path, 
                             fwhm_xy_mm=None, 
                             normalize_mean=None, normalize_std=None,
                             suv_clip_threshold=None, ct_mode = self.ct_mode, ct_bone_seg_dilation_erosion_pixels=self.ct_bone_seg_dilation_erosion_pixels,
                             ct_bone_seg_dilation_alone_pixels=self.ct_bone_seg_dilation_alone_pixels,
-                            fixed_bbox=bbox)
+                            fixed_bbox=bbox,
+                            ct_clip_threshold_low=self.ct_clip_threshold_low, ct_clip_threshold_high=self.ct_clip_threshold_high)
             
             if self.ct_mode.startswith('BONE_SEG_MASK_MULTIPLY'):
                 ct_img = ct_img * img

@@ -1,0 +1,21 @@
+# I/O PARAMS
+# INPUT
+data_path_img: '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/' # path to directory housing h5 files
+data_path_datafiles: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/val_df.csv' # path to csv for validation split
+model_path_pattern: '/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_*.pth' # seeds 0-9
+dataset_type: 'val'
+force_train_mode: true
+
+# OUTPUT
+output: '/gpfs/data/mayerhoeferlab/projects/myeloma/results/2D_all_seeds_prediction_using_LARS/val_bs16_forcetrain'
+
+# MODEL PARAMS
+nfeat: 512
+
+# DATA PARAMS
+postfilter_fwhm_xy_mm: 6.4
+normalize: true
+
+# DATALOADER PARAMS
+batch_size: 16
+workers: 6

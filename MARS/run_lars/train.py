@@ -20,6 +20,7 @@ from datetime import datetime
 import time
 import random
 import wandb
+from sklearn.metrics import roc_auc_score
 
 
 # config functions
@@ -34,13 +35,13 @@ def load_config():
     return config
 
 def save_copy_of_config(filename):
-    config_path = sys.argv[1]
     if not os.path.exists(args["output"]):
         os.makedirs(args["output"], exist_ok=True)
 
     dest_path = os.path.join(args["output"], filename)
-    shutil.copyfile(config_path, dest_path)
-    print(f"Configuration file copied to {dest_path}")
+    with open(dest_path, "w") as f:
+        yaml.safe_dump(args, f, sort_keys=False)
+    print(f"Resolved configuration written to {dest_path}")
 
 def set_defaults_config():
     default_dict = {
@@ -63,6 +64,7 @@ def set_defaults_config():
         'postfilter_fwhm_xy_mm_min': None,
         'postfilter_fwhm_xy_mm_max': None,
         'skip_eval_on_training': True,
+        'skip_eval_on_validation': False,
         'suv_clip_threshold_min': None,
         'suv_clip_threshold_max': None,
         'combine_mipviews': None,
@@ -77,7 +79,13 @@ def set_defaults_config():
         'lr_scheduler_reduction_factor': 0.1,
         'ct_mode': None,
         'ct_bone_seg_dilation_erosion': None,
-        'ct_bone_seg_dilation_alone': None
+        'ct_bone_seg_dilation_alone': None,
+        'train_test_split_pkl': None,
+        'run_eval_every_n_epochs': None,
+        'eval_on_fraction_of_val': None,
+        'auxiliary_head_label_names': [],
+        'auxiliary_loss_scale': 0.0,
+        'auxiliary_head_loss_type': 'bce'
     }
     
     for key, value in default_dict.items():
@@ -99,6 +107,28 @@ def init_wandb(config):
     wandb.define_metric("mipview/*", step_metric="epoch")
     return run, wandb.config
 
+def parse_targets(target):
+    if isinstance(target, dict):
+        return target['main'], target['aux']
+    return target, None
+
+def format_head_metrics_for_logging(head_metrics):
+    out = {}
+    for head_name, metrics in head_metrics.items():
+        safe_head_name = str(head_name).replace(' ', '_')
+        for metric_name, metric_value in metrics.items():
+            out[f'head_{safe_head_name}_{metric_name}'] = metric_value
+    return out
+
+
+def get_cmd_arg(flag_name):
+    if flag_name not in sys.argv:
+        return None
+    flag_pos = sys.argv.index(flag_name) + 1
+    if flag_pos >= len(sys.argv):
+        raise ValueError(f"{flag_name} requires a value")
+    return sys.argv[flag_pos]
+
 model_names = ['densenet121', 'densenet161', 'densenet169', 'densenet201', 
                'resnet101', 'resnet152', 'resnet18', 'resnet34', 'resnet50', 
                'shufflenet.v2.x0.5', 'shufflenet.v2.x1.0', 'shufflenet.v2.x1.5', 'shufflenet.v2.x2.0', 
@@ -117,17 +147,62 @@ def main():
     if '--seed_index' in sys.argv:
         seed_index_pos = sys.argv.index('--seed_index') + 1
         args['seed_index'] = int(sys.argv[seed_index_pos])
-    
+    if '--train_test_split_pkl' in sys.argv:
+        train_test_split_pkl_pos = sys.argv.index('--train_test_split_pkl') + 1
+        args['train_test_split_pkl'] = sys.argv[train_test_split_pkl_pos]
+    if '--output' in sys.argv:
+        output_pos = sys.argv.index('--output') + 1
+        args['output'] = sys.argv[output_pos]
+    auxiliary_head_label_names = get_cmd_arg('--auxiliary_head_label_names')
+    if auxiliary_head_label_names is not None:
+        args['auxiliary_head_label_names'] = auxiliary_head_label_names
+    wandb_run_name = get_cmd_arg('--WANDB_run_name')
+    if wandb_run_name is not None:
+        args['WANDB_run_name'] = wandb_run_name
+    auxiliary_head_loss_type = get_cmd_arg('--auxiliary_head_loss_type')
+    if auxiliary_head_loss_type is not None:
+        args['auxiliary_head_loss_type'] = auxiliary_head_loss_type
+    if '--skip_eval_on_validation' in sys.argv:
+        args['skip_eval_on_validation'] = True
+    if '--lr_scheduler_cycle_length' in sys.argv:
+        cycle_pos = sys.argv.index('--lr_scheduler_cycle_length') + 1
+        args['lr_scheduler_cycle_length'] = int(sys.argv[cycle_pos])
+    if '--run_eval_every_n_epochs' in sys.argv:
+        run_eval_every_n_epochs_pos = sys.argv.index('--run_eval_every_n_epochs') + 1
+        args['run_eval_every_n_epochs'] = int(sys.argv[run_eval_every_n_epochs_pos])
+    if '--eval_on_fraction_of_val' in sys.argv:
+        eval_on_fraction_of_val_pos = sys.argv.index('--eval_on_fraction_of_val') + 1
+        args['eval_on_fraction_of_val'] = sys.argv[eval_on_fraction_of_val_pos]
 
     set_defaults_config()
 
+    if args['skip_eval_on_validation'] and args.get("lr_scheduler") == 'plateau':
+        raise ValueError("lr_scheduler='plateau' requires validation loss; disable --skip_eval_on_validation or choose a different scheduler.")
+    if args['skip_eval_on_validation'] and args.get("early_stopping"):
+        raise ValueError("early_stopping requires validation loss; disable --skip_eval_on_validation or set early_stopping=false.")
+    if args['eval_on_fraction_of_val'] is not None:
+        args['eval_on_fraction_of_val'] = float(args['eval_on_fraction_of_val'])
+        if not (0 < args['eval_on_fraction_of_val'] <= 1):
+            raise ValueError("eval_on_fraction_of_val must be in the range (0, 1].")
+    if args['auxiliary_head_label_names'] is None:
+        args['auxiliary_head_label_names'] = []
+    if isinstance(args['auxiliary_head_label_names'], str):
+        args['auxiliary_head_label_names'] = [x.strip() for x in args['auxiliary_head_label_names'].split(',') if x.strip()]
+    args['auxiliary_loss_scale'] = float(args['auxiliary_loss_scale'])
+    if args['auxiliary_head_loss_type'] not in ['bce', 'mse', 'log_mse']:
+        raise ValueError("auxiliary_head_loss_type must be either 'bce', 'mse', or 'log_mse'.")
+
     # save config file
     t0 = time.time()
-    datetimestr = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
-    config_outname = "config_" + datetimestr + ".yaml"
+    datetimestr = datetime.today().strftime('%Y-%m-%d_%H-%M-%S_%f')
+    slurm_job_id = os.environ.get("SLURM_JOB_ID", "nojob")
+    slurm_array_task_id = os.environ.get("SLURM_ARRAY_TASK_ID", "notask")
+    run_suffix = f"{slurm_job_id}_{slurm_array_task_id}_{os.getpid()}"
+    run_stamp = f"{datetimestr}_{run_suffix}"
+    config_outname = "config_" + run_stamp + ".yaml"
     save_copy_of_config(config_outname)
 
-    log_file = open(os.path.join(args["output"], f'log_{datetimestr}.log'),"w")
+    log_file = open(os.path.join(args["output"], f'log_{run_stamp}.log'),"w")
     sys.stdout = log_file
     sys.stderr = log_file
 
@@ -180,9 +255,17 @@ def main():
         print('Loaded [{}/{}] keys from checkpoint'.format(len(pretrained_dict),len(model_dict)))
         model_dict.update(pretrained_dict)
         model.load_state_dict(model_dict)
-    
+    if args['checkpoint'] is None and args['checkpoint_folder'] is None and not args['resume']:
+        print("Training from scratch without loading any model weights.")
+
     if args['combine_mipviews'] is not None:
         model = utils.modify_resnet_to_accomodate_two_mipviews(model, mipview_strategy=args['combine_mipviews'], feature_concat_divide_weights=args['feature_concat_divide_weights'])
+        model.cuda()
+
+    if len(args['auxiliary_head_label_names']) > 0:
+        print(f"Initializing auxiliary heads: {args['auxiliary_head_label_names']}")
+        auxiliary_output_dim = 1 if args['auxiliary_head_loss_type'] in ['mse', 'log_mse'] else 2
+        model.initialize_auxiliary_heads(args['auxiliary_head_label_names'], output_dim=auxiliary_output_dim)
         model.cuda()
 
     model_dict = model.state_dict()
@@ -231,10 +314,13 @@ def main():
         transform = transforms.Compose([flipLR,scale])
     elif args["augm"]==45:
         transform = transforms.Compose([scale,noise])
+
+    train_test_split = pd.read_pickle(args['train_test_split_pkl']) if args['train_test_split_pkl'] is not None else None
     
     train_dset = dataset.get_datasets(dataset_type='train', 
         norm=args["normalize"], transform=transform, 
-        data_path_img = args["data_path_img"], data_path = args["train_datapath_csv"],
+        data_path_img = args["data_path_img"], data_path = args["train_datapath_csv"], 
+        subset_ids=train_test_split['train'] if train_test_split is not None else None,
         postfilter_fwhm_xy_mm=args["postfilter_fwhm_xy_mm"],
         normalize_mean=args["normalize_mean"], normalize_std=args["normalize_std"],
         target_label_name=args["target_label_name"],
@@ -245,12 +331,14 @@ def main():
         combine_mipviews = args["combine_mipviews"],
         ct_mode = args["ct_mode"],
         ct_bone_seg_dilation_erosion_pixels = args["ct_bone_seg_dilation_erosion"],
-        ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone"]
+        ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone"],
+        auxiliary_label_names = args["auxiliary_head_label_names"]
     )
 
     val_dset = dataset.get_datasets(dataset_type='val', 
         norm=args["normalize"], transform=None, 
         data_path_img = args["data_path_img"], data_path = args["val_datapath_csv"],
+        subset_ids=train_test_split['val'] if train_test_split is not None else None,
         postfilter_fwhm_xy_mm=args["postfilter_fwhm_xy_mm"],
         normalize_mean=args["normalize_mean"], normalize_std=args["normalize_std"],
         target_label_name=args["target_label_name"],
@@ -258,12 +346,14 @@ def main():
         combine_mipviews = args["combine_mipviews"],
         ct_mode = args["ct_mode"],
         ct_bone_seg_dilation_erosion_pixels = args["ct_bone_seg_dilation_erosion"],
-        ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone"]
+        ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone"],
+        auxiliary_label_names = args["auxiliary_head_label_names"]
     )
-
+    
     train_dset_for_evaluation = dataset.get_datasets(dataset_type='val', 
         norm=args["normalize"], transform=None, 
         data_path_img = args["data_path_img"], data_path = args["train_datapath_csv"],
+        subset_ids=train_test_split['train'] if train_test_split is not None else None,
         postfilter_fwhm_xy_mm=args["postfilter_fwhm_xy_mm"],
         normalize_mean=args["normalize_mean"], normalize_std=args["normalize_std"],
         target_label_name=args["target_label_name"],
@@ -271,8 +361,57 @@ def main():
         combine_mipviews = args["combine_mipviews"],
         ct_mode = args["ct_mode"],
         ct_bone_seg_dilation_erosion_pixels = args["ct_bone_seg_dilation_erosion"],
-        ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone"]
+        ct_bone_seg_dilation_alone_pixels = args["ct_bone_seg_dilation_alone"],
+        auxiliary_label_names = args["auxiliary_head_label_names"]
     )
+
+    if len(args["auxiliary_head_label_names"]) > 0:
+        for aux_label_name in args["auxiliary_head_label_names"]:
+            if aux_label_name not in train_dset.df.columns:
+                print(f"WARNING: Auxiliary label '{aux_label_name}' is not present in training dataframe columns. This head will receive zero loss.")
+                continue
+            train_non_missing = train_dset.df[aux_label_name].notna().sum()
+            val_non_missing = val_dset.df[aux_label_name].notna().sum() if aux_label_name in val_dset.df.columns else 0
+            print(
+                f"Auxiliary label '{aux_label_name}' availability: "
+                f"train {train_non_missing}/{len(train_dset.df)}, "
+                f"val {val_non_missing}/{len(val_dset.df)}"
+            )
+
+    # Sanity checks for auxiliary targets (NaNs, negatives, range) and optional W&B logging
+    if len(args["auxiliary_head_label_names"]) > 0:
+        for aux_label_name in args["auxiliary_head_label_names"]:
+            if aux_label_name not in train_dset.df.columns:
+                continue
+            train_col = train_dset.df[aux_label_name]
+            val_col = val_dset.df[aux_label_name] if aux_label_name in val_dset.df.columns else None
+
+            def _compute_stats(col):
+                if col is None:
+                    return {'n_total': 0, 'n_missing': 0, 'n_negative': 0, 'min': float('nan'), 'median': float('nan'), 'max': float('nan')}
+                n_total = int(len(col))
+                n_missing = int(col.isna().sum())
+                non_na = col.dropna().astype(float)
+                n_negative = int((non_na < 0).sum()) if non_na.size > 0 else 0
+                if non_na.size > 0:
+                    return {
+                        'n_total': n_total,
+                        'n_missing': n_missing,
+                        'n_negative': n_negative,
+                        'min': float(non_na.min()),
+                        'median': float(non_na.median()),
+                        'max': float(non_na.max())
+                    }
+                else:
+                    return {'n_total': n_total, 'n_missing': n_missing, 'n_negative': n_negative, 'min': float('nan'), 'median': float('nan'), 'max': float('nan')}
+
+            train_stats = _compute_stats(train_col)
+            val_stats = _compute_stats(val_col)
+
+            print(f"AUX STATS [{aux_label_name}] train: missing={train_stats['n_missing']}/{train_stats['n_total']} neg={train_stats['n_negative']} range=({train_stats['min']},{train_stats['median']},{train_stats['max']})")
+            print(f"AUX STATS [{aux_label_name}]  val: missing={val_stats['n_missing']}/{val_stats['n_total']} neg={val_stats['n_negative']} range=({val_stats['min']},{val_stats['median']},{val_stats['max']})")
+
+            # (W&B logging removed - keep console prints only to avoid clutter)
 
     print("Printing dataset signature (val):")
     for xa in range(5):
@@ -350,6 +489,24 @@ def main():
     train_for_evaluation_loader = torch.utils.data.DataLoader(train_dset_for_evaluation, batch_size=args["batch_size"], shuffle=False, num_workers=args["workers"])
     val_loader = torch.utils.data.DataLoader(val_dset, batch_size=args["batch_size"], shuffle=False, num_workers=args["workers"])
 
+    val_smaller_loader = None
+    if args['eval_on_fraction_of_val'] is not None and args['eval_on_fraction_of_val'] < 1:
+        n_val_examples = len(val_dset)
+        n_eval_examples = max(1, int(np.ceil(n_val_examples * args['eval_on_fraction_of_val'])))
+        rng = np.random.default_rng(2025)
+        subset_indices = rng.choice(n_val_examples, size=n_eval_examples, replace=False)
+        val_smaller_dset = torch.utils.data.Subset(val_dset, subset_indices.tolist())
+        val_smaller_loader = torch.utils.data.DataLoader(
+            val_smaller_dset,
+            batch_size=args["batch_size"],
+            shuffle=False,
+            num_workers=args["workers"]
+        )
+        print(
+            f"Created fixed val_smaller dataloader with {n_eval_examples}/{n_val_examples} "
+            f"samples ({args['eval_on_fraction_of_val']:.3f} of val set)."
+        )
+
     # Set output files
     convergence_name = 'convergence_seed'+str(args["seed_index"])+'_run'+str(args["run"])+'.csv'
     if not args["resume"]:
@@ -395,10 +552,11 @@ def main():
         ### Validation logic
         # Evaluate on train data
         if not args['skip_eval_on_training']:
-            train_probs, train_ground_truth, train_loss, trainval_distribution_logging = test(epoch, train_for_evaluation_loader, model, criterion)
+            train_probs, train_ground_truth, train_loss, trainval_distribution_logging, train_head_metrics = test(epoch, train_for_evaluation_loader, model, criterion)
             train_results_dict = logging_utils.calculate_metrics_from_probs(train_probs, train_ground_truth)
             train_results_dict['loss'] = train_loss
             train_results_dict['num_examples'] = num_examples
+            train_results_dict.update(format_head_metrics_for_logging(train_head_metrics))
             logging_utils.log_metrics(wandb_run, train_results_dict, epoch, train_step, prefix='epoch/train/')
         elif epoch > 0:
             # log at least the running loss from training
@@ -407,38 +565,83 @@ def main():
             
 
         # Evaluate on validation set
-        val_probs, val_ground_truth, val_loss, val_distribution_logging = test(epoch, val_loader, model, criterion)
-        logging_utils.log_data_distribution(val_distribution_logging['all_values'], wandb_run, prefix='distribution/val/')
-        val_distribution_logging = None  # free memory
+        val_eval_metadata = {
+            'eval_source': 'skipped',
+            'eval_num_examples': 0,
+            'eval_fraction_of_full': 0.0,
+            'eval_is_fractional': 0
+        }
+        if args['skip_eval_on_validation']:
+            print("Skipping validation evaluation for this epoch (--skip_eval_on_validation enabled).")
+            val_results_dict = {'loss': float('nan'), 'auc': float('nan')}
+        else:
+            run_full_eval_this_epoch = (
+                args['run_eval_every_n_epochs'] is not None
+                and epoch % args['run_eval_every_n_epochs'] == 0
+            )
+            run_fractional_eval_this_epoch = val_smaller_loader is not None and not run_full_eval_this_epoch
 
-        val_results_dict = logging_utils.calculate_metrics_from_probs(val_probs, val_ground_truth)
-        val_results_dict['loss'] = val_loss
-        logging_utils.log_metrics(wandb_run, val_results_dict, epoch, train_step, prefix='epoch/val/')
+            if run_fractional_eval_this_epoch:
+                val_loader_this_epoch = val_smaller_loader
+                print("Running validation using fixed val_smaller dataloader.")
+            elif args['run_eval_every_n_epochs'] is not None and val_smaller_loader is None and epoch % args['run_eval_every_n_epochs'] != 0:
+                print(f"Skipping validation evaluation for this epoch (only running every {args['run_eval_every_n_epochs']} epochs).")
+                val_results_dict = {'loss': float('nan'), 'auc': float('nan')}
+                val_loader_this_epoch = None
+            else:
+                val_loader_this_epoch = val_loader
+                if run_full_eval_this_epoch:
+                    print(f"Running full validation this epoch due to run_eval_every_n_epochs={args['run_eval_every_n_epochs']}.")
 
-        # log some other stuff
-        if args['log_example_images']:
-            logging_utils.log_val_example_images(wandb_run, val_dset, val_probs, val_ground_truth, model, n_table_ex=50, n=5, combine_mipviews = args['combine_mipviews'])
-        logging_utils.log_classification_plots(wandb_run, val_probs, val_ground_truth)
-        logging_utils.log_probability_histogram(wandb_run, val_probs, val_ground_truth)
-        
+            if val_loader_this_epoch is not None:
+                val_probs, val_ground_truth, val_loss, val_distribution_logging, val_head_metrics = test(epoch, val_loader_this_epoch, model, criterion)
+                logging_utils.log_data_distribution(val_distribution_logging['all_values'], wandb_run, prefix='distribution/val/')
+                val_distribution_logging = None  # free memory
 
-        if args['log_mipview_aggregation'] and args['combine_mipviews'] is None:
-            # do mip-view aggregation to mean or max for additional logging
-            accessions = val_dset.df['accession'].values
-            val_probs_df = pd.DataFrame({'accession': accessions, 'prob': val_probs, 'truth': val_ground_truth})
-            
-            # assert that every accession in val_probs_df has exactly 2 entries
-            assert all(val_probs_df['accession'].value_counts() == 2), "Not all accessions have exactly 2 mipviews"
+                eval_num_examples = len(val_probs)
+                val_eval_metadata['eval_num_examples'] = eval_num_examples
+                val_eval_metadata['eval_fraction_of_full'] = eval_num_examples / len(val_dset)
+                val_eval_metadata['eval_is_fractional'] = int(run_fractional_eval_this_epoch)
+                val_eval_metadata['eval_source'] = 'val_smaller' if run_fractional_eval_this_epoch else 'full_val'
 
-            val_probs_mean = val_probs_df.groupby('accession').mean().reset_index()
-            val_probs_max = val_probs_df.groupby('accession').max().reset_index()
+                val_results_dict = logging_utils.calculate_metrics_from_probs(val_probs, val_ground_truth)
+                val_results_dict['loss'] = val_loss
+                val_results_dict.update(val_eval_metadata)
+                val_results_dict.update(format_head_metrics_for_logging(val_head_metrics))
+                logging_utils.log_metrics(wandb_run, val_results_dict, epoch, train_step, prefix='epoch/val/')
 
-            logging_utils.log_classification_plots(wandb_run, val_probs_mean['prob'].values, val_probs_mean['truth'].values, prefix='mipview/mean_')
-            logging_utils.log_classification_plots(wandb_run, val_probs_max['prob'].values, val_probs_max['truth'].values, prefix='mipview/max_')
-            mipview_mean_val_results_dict = logging_utils.calculate_metrics_from_probs(val_probs_mean['prob'].values, val_probs_mean['truth'].values)
-            mipview_max_val_results_dict = logging_utils.calculate_metrics_from_probs(val_probs_max['prob'].values, val_probs_max['truth'].values)
-            logging_utils.log_metrics(wandb_run, mipview_mean_val_results_dict, epoch, train_step, prefix='mipview/mean_val_')
-            logging_utils.log_metrics(wandb_run, mipview_max_val_results_dict, epoch, train_step, prefix='mipview/max_val_')
+                # log some other stuff
+                if args['log_example_images'] and not run_fractional_eval_this_epoch:
+                    logging_utils.log_val_example_images(wandb_run, val_dset, val_probs, val_ground_truth, model, n_table_ex=50, n=5, combine_mipviews = args['combine_mipviews'])
+                elif args['log_example_images']:
+                    print("Skipping val example image logging for val_smaller evaluation (requires full val indexing).")
+
+                logging_utils.log_classification_plots(wandb_run, val_probs, val_ground_truth)
+                logging_utils.log_probability_histogram(wandb_run, val_probs, val_ground_truth)
+
+                if args['log_mipview_aggregation'] and args['combine_mipviews'] is None:
+                    if not run_fractional_eval_this_epoch:
+                        # do mip-view aggregation to mean or max for additional logging
+                        accessions = val_dset.df['accession'].values
+                        val_probs_df = pd.DataFrame({'accession': accessions, 'prob': val_probs, 'truth': val_ground_truth})
+
+                        # assert that every accession in val_probs_df has exactly 2 entries
+                        assert all(val_probs_df['accession'].value_counts() == 2), "Not all accessions have exactly 2 mipviews"
+
+                        val_probs_mean = val_probs_df.groupby('accession').mean().reset_index()
+                        val_probs_max = val_probs_df.groupby('accession').max().reset_index()
+
+                        logging_utils.log_classification_plots(wandb_run, val_probs_mean['prob'].values, val_probs_mean['truth'].values, prefix='mipview/mean_')
+                        logging_utils.log_classification_plots(wandb_run, val_probs_max['prob'].values, val_probs_max['truth'].values, prefix='mipview/max_')
+                        mipview_mean_val_results_dict = logging_utils.calculate_metrics_from_probs(val_probs_mean['prob'].values, val_probs_mean['truth'].values)
+                        mipview_max_val_results_dict = logging_utils.calculate_metrics_from_probs(val_probs_max['prob'].values, val_probs_max['truth'].values)
+                        logging_utils.log_metrics(wandb_run, mipview_mean_val_results_dict, epoch, train_step, prefix='mipview/mean_val_')
+                        logging_utils.log_metrics(wandb_run, mipview_max_val_results_dict, epoch, train_step, prefix='mipview/max_val_')
+                    else:
+                        print("Skipping mip-view aggregation logging for val_smaller evaluation (requires full cor/sag pairs).")
+
+        if val_eval_metadata['eval_source'] == 'skipped':
+            logging_utils.log_metrics(wandb_run, val_eval_metadata, epoch, train_step, prefix='epoch/val/')
 
         #print('Epoch: [{}/{}]\tLoss: {:.6f}\tAUC: {:.4f}\t{:.4f}'.format(epoch, args["nepochs"], loss, train_results_dict['auc'], val_results_dict['auc']))
                 
@@ -457,7 +660,10 @@ def main():
         torch.save(obj, os.path.join(args["output"],'checkpoint_seed'+str(args["seed_index"])+'_run'+str(args["run"])+'.pth'))
 
         ### Save best checkpoint
-        if val_results_dict['auc'] >= best_auc:
+        if args['skip_eval_on_validation']:
+            # Without validation metrics, keep a best checkpoint alias on every epoch.
+            torch.save(obj, os.path.join(args["output"],'checkpoint_seed'+str(args["seed_index"])+'_run'+str(args["run"])+'_best.pth'))
+        elif val_results_dict['auc'] >= best_auc:
             best_auc = val_results_dict['auc']
             torch.save(obj, os.path.join(args["output"],'checkpoint_seed'+str(args["seed_index"])+'_run'+str(args["run"])+'_best.pth'))
         
@@ -508,6 +714,12 @@ def test(epoch, loader, model, criterion):
     # collect values throughout for logging
     distribution_logging = {'all_values': []}
 
+    # per-head epoch metrics
+    head_loss_sums = {'main': 0.0}
+    head_loss_counts = {'main': 0}
+    head_probs = {'main': []}
+    head_truth = {'main': []}
+
     # Loop through batches
     with torch.no_grad():
         for i, (input, target) in enumerate(tqdm.tqdm(loader, file=sys.stdout)):
@@ -520,23 +732,62 @@ def test(epoch, loader, model, criterion):
 
             if i == 0:
                 print("Printing validation data signature:")
-                for xx in range(5):
+                for xx in range(min(5, num_elements_in_batch)):
                     sample = input[xx]
                     print(f'  input norm: {torch.norm(sample)}')
                     print(f'    model output: {model(sample.unsqueeze(0)).detach()}')
 
-            target_1hot = F.one_hot(target.long(),num_classes=2).cuda()
+            main_target, aux_target = parse_targets(target)
 
             ## Forward pass
-            y = model(input) #features, probabilities
-            
-            loss = criterion(y, target_1hot.float())
+            features, y = model.forward_feat(input)
+            aux_logits_dict = model.forward_aux(features) if hasattr(model, 'forward_aux') else {}
+
+            main_loss, _, loss = utils.compute_multitask_loss(y, main_target, aux_logits_dict, aux_target, args['auxiliary_loss_scale'], auxiliary_loss_type=args['auxiliary_head_loss_type'])
             running_loss += loss.item()*num_elements_in_batch
+
+            head_loss_sums['main'] += main_loss.item() * num_elements_in_batch
+            head_loss_counts['main'] += num_elements_in_batch
 
             pred = F.softmax(y,dim=1)
             ## Clone output to output vector
             probs[i*args["batch_size"]:i*args["batch_size"]+num_elements_in_batch] = pred.detach()[:,1].clone()
-            ground_truth[i*args["batch_size"]:i*args["batch_size"]+num_elements_in_batch] = target.int().cuda()
+            ground_truth[i*args["batch_size"]:i*args["batch_size"]+num_elements_in_batch] = main_target.int().cuda()
+            head_probs['main'].append(pred.detach()[:,1].cpu().numpy())
+            head_truth['main'].append(main_target.detach().cpu().numpy())
+
+            if aux_target is not None and len(aux_logits_dict) > 0:
+                aux_target_float = aux_target.float().cuda() if torch.is_tensor(aux_target) else torch.tensor(aux_target, dtype=torch.float32, device=y.device)
+                for head_idx, (head_name, head_logits) in enumerate(aux_logits_dict.items()):
+                    if head_name not in head_loss_sums:
+                        head_loss_sums[head_name] = 0.0
+                        head_loss_counts[head_name] = 0
+                        head_probs[head_name] = []
+                        head_truth[head_name] = []
+                    
+                    this_aux_labels = aux_target_float[:, head_idx]
+                    valid_mask = ~torch.isnan(this_aux_labels)
+                    if torch.any(valid_mask):
+                        valid_logits = head_logits[valid_mask]
+                        if args['auxiliary_head_loss_type'] in ['mse', 'log_mse']:
+                            valid_labels = this_aux_labels[valid_mask].float()
+                            if args['auxiliary_head_loss_type'] == 'log_mse':
+                                valid_labels = torch.log1p(valid_labels.clamp_min(0.0))
+                            valid_predictions = valid_logits.view(-1)
+                            this_head_loss = F.mse_loss(valid_predictions, valid_labels, reduction='mean')
+                            head_probs[head_name].append(valid_predictions.detach().cpu().numpy())
+                            head_truth[head_name].append(valid_labels.detach().cpu().numpy())
+                        else:
+                            valid_labels = this_aux_labels[valid_mask].long()
+                            valid_targets_1hot = F.one_hot(valid_labels, num_classes=2).to(y.device).float()
+                            this_head_loss = F.binary_cross_entropy_with_logits(valid_logits, valid_targets_1hot, reduction='mean')
+                            valid_probs = F.softmax(valid_logits, dim=1)[:,1]
+                            head_probs[head_name].append(valid_probs.detach().cpu().numpy())
+                            head_truth[head_name].append(valid_labels.detach().cpu().numpy())
+
+                        n_valid = int(valid_mask.sum().item())
+                        head_loss_sums[head_name] += this_head_loss.item() * n_valid
+                        head_loss_counts[head_name] += n_valid
 
             # collect values for data distribution logging
             if i == 0:
@@ -548,7 +799,34 @@ def test(epoch, loader, model, criterion):
         ground_truth = ground_truth[:num_elements_in_batch]
 
     running_loss /= probs.size(0)
-    return probs.cpu().numpy(), ground_truth.cpu().numpy(), running_loss, distribution_logging
+
+    head_metrics = {}
+    for head_name in head_loss_sums.keys():
+        if head_loss_counts[head_name] > 0:
+            head_loss = head_loss_sums[head_name] / head_loss_counts[head_name]
+        else:
+            head_loss = float('nan')
+
+        if len(head_probs[head_name]) > 0:
+            y_scores = np.concatenate(head_probs[head_name])
+            y_true = np.concatenate(head_truth[head_name])
+            if args['auxiliary_head_loss_type'] in ['mse', 'log_mse']:
+                head_metrics[head_name] = {
+                    'loss': head_loss,
+                    'mse': float(np.mean((y_scores - y_true) ** 2)),
+                    'mae': float(np.mean(np.abs(y_scores - y_true)))
+                }
+                continue
+            try:
+                head_auc = roc_auc_score(y_true.astype(int), y_scores)
+            except ValueError:
+                head_auc = float('nan')
+        else:
+            head_auc = float('nan')
+
+        head_metrics[head_name] = {'loss': head_loss, 'auc': head_auc}
+
+    return probs.cpu().numpy(), ground_truth.cpu().numpy(), running_loss, distribution_logging, head_metrics
 
 def train(epoch, loader, model, criterion, optimizer, train_step, num_examples, lr_scheduler=None, epoch_0=0):
     # Set model in training mode
@@ -568,12 +846,13 @@ def train(epoch, loader, model, criterion, optimizer, train_step, num_examples, 
         input = input.cuda()
         num_elements_in_batch = input.size(0)
 
-        target_1hot = F.one_hot(target.long(),num_classes=2).cuda()
+        main_target, aux_target = parse_targets(target)
         ## Forward pass
-        y = model(input) #features, probabilities
-        
+        features, y = model.forward_feat(input)
+        aux_logits_dict = model.forward_aux(features) if hasattr(model, 'forward_aux') else {}
+
         ## Calculate loss
-        loss = criterion(y, target_1hot.float())
+        main_loss, aux_loss, loss = utils.compute_multitask_loss(y, main_target, aux_logits_dict, aux_target, args['auxiliary_loss_scale'], auxiliary_loss_type=args['auxiliary_head_loss_type'])
         ## Optimization step
         optimizer.zero_grad()
         loss.backward()
@@ -583,11 +862,13 @@ def train(epoch, loader, model, criterion, optimizer, train_step, num_examples, 
         num_examples += num_elements_in_batch
 
         # log step metrics
-        y_true = target.detach().cpu().numpy()
+        y_true = main_target.detach().cpu().numpy()
         y_probs = F.softmax(y, dim=1)[:,1].detach().cpu().numpy()
         
         step_results_dict = logging_utils.calculate_metrics_from_probs(y_probs, y_true)
         step_results_dict['loss'] = loss.item()
+        step_results_dict['main_loss'] = main_loss.item()
+        step_results_dict['aux_loss_unscaled'] = aux_loss.item()
         step_results_dict['num_examples'] = num_examples
 
         lr_dict_step_dict = logging_utils.get_log_learning_rates_step(wandb_run, optimizer, train_step)

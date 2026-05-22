@@ -114,6 +114,26 @@ class my_model(nn.Module):
             self.flat = True
         # self.features = nn.Sequential(*list(model.children())[0:-1])
         # self.fc = list(model.children())[-1]
+        self.aux_fcs = nn.ModuleDict()
+
+    def initialize_auxiliary_heads(self, auxiliary_head_names, output_dim=2):
+        self.aux_fcs = nn.ModuleDict()
+        for head_name in auxiliary_head_names:
+            aux_head = nn.Linear(self.fc.in_features, output_dim, bias=self.fc.bias is not None)
+            if output_dim == 1:
+                # Neutral regression start without inheriting the binary classifier's decision boundary.
+                nn.init.xavier_uniform_(aux_head.weight)
+                if aux_head.bias is not None:
+                    nn.init.zeros_(aux_head.bias)
+            else:
+                rows_to_copy = min(output_dim, self.fc.out_features)
+                aux_head.weight.data[:rows_to_copy].copy_(self.fc.weight.data[:rows_to_copy])
+                if self.fc.bias is not None:
+                    aux_head.bias.data[:rows_to_copy].copy_(self.fc.bias.data[:rows_to_copy])
+            self.aux_fcs[head_name] = aux_head
+
+    def forward_aux(self, features):
+        return {head_name: head_layer(features) for head_name, head_layer in self.aux_fcs.items()}
     
     def forward(self, x):
         f = self.features(x)
@@ -141,6 +161,7 @@ class my_model_feat_fusion(my_model):
         # instantiate the extra layers
         self.fc = nn.Linear(1024,2)
         self.fusion_mode = fusion_mode
+        self.aux_fcs = nn.ModuleDict()
     def forward(self, x):
         x1 = x[:, 0:1, :, :]
         x2 = x[:, 1:2, :, :]
@@ -235,16 +256,20 @@ def create_optimizer(model, mode, lr, momentum, wd, fc_lr=None):
     if fc_lr is None:
         fc_lr = lr
 
+    head_params = list(model.fc.parameters())
+    if hasattr(model, 'aux_fcs') and len(model.aux_fcs) > 0:
+        head_params += list(model.aux_fcs.parameters())
+
     if mode == 'sgd':
         param_groups = [
             {'name': 'encoder', 'params': model.features.parameters(), "lr": lr, "momentum": momentum, "weight_decay": wd, "dampening": 0, "nesterov": True},
-            {'name': 'fc', 'params': model.fc.parameters(), "lr": fc_lr, "momentum": momentum, "weight_decay": wd, "dampening": 0, "nesterov": True}
+            {'name': 'fc', 'params': head_params, "lr": fc_lr, "momentum": momentum, "weight_decay": wd, "dampening": 0, "nesterov": True}
         ]
         optimizer = optim.SGD(param_groups)
     elif mode == 'adam':
         param_groups = [
             {'name': 'encoder', 'params': model.features.parameters(), "lr": lr, "weight_decay": wd},
-            {'name': 'fc', 'params': model.fc.parameters(), "lr": fc_lr, "weight_decay": wd}
+            {'name': 'fc', 'params': head_params, "lr": fc_lr, "weight_decay": wd}
         ]
         optimizer = optim.Adam(param_groups)
     return optimizer
@@ -268,6 +293,46 @@ def adjust_learning_rate(optimizer, epoch, period, start_lr, start_lr_fc=None):
         print('New lr:', lr)
         param_group['lr'] = lr
         param_group['lr'] = lr
+
+
+def transform_aux_targets(aux_target, auxiliary_loss_type):
+    if auxiliary_loss_type == 'log_mse':
+        return torch.log1p(aux_target.clamp_min(0.0))
+    return aux_target
+
+def compute_multitask_loss(main_logits, main_target, aux_logits_dict, aux_target, aux_loss_scale, auxiliary_loss_type='bce'):
+    main_target_1hot = F.one_hot(main_target.long(), num_classes=2).cuda().float()
+    main_loss = F.binary_cross_entropy_with_logits(main_logits, main_target_1hot, reduction='mean')
+
+    aux_loss = torch.tensor(0.0, device=main_logits.device)
+    if aux_target is None or len(aux_logits_dict) == 0:
+        return main_loss, aux_loss, main_loss
+
+    if not torch.is_tensor(aux_target):
+        aux_target = torch.tensor(aux_target)
+    aux_target = aux_target.float().cuda()
+
+    for head_idx, head_name in enumerate(aux_logits_dict.keys()):
+        this_aux_labels = aux_target[:, head_idx]
+        valid_mask = ~torch.isnan(this_aux_labels)
+        if torch.any(valid_mask):
+            if auxiliary_loss_type == 'log_mse':
+                this_targets = torch.log1p(this_aux_labels[valid_mask].clamp_min(0.0))
+                this_predictions = aux_logits_dict[head_name][valid_mask].view(-1)
+                this_loss = F.mse_loss(this_predictions, this_targets, reduction='mean')
+            elif auxiliary_loss_type == 'mse':
+                this_targets = this_aux_labels[valid_mask].float()
+                this_predictions = aux_logits_dict[head_name][valid_mask].view(-1)
+                this_loss = F.mse_loss(this_predictions, this_targets, reduction='mean')
+            elif auxiliary_loss_type == 'bce':
+                this_targets_1hot = F.one_hot(this_aux_labels[valid_mask].long(), num_classes=2).to(main_logits.device).float()
+                this_loss = F.binary_cross_entropy_with_logits(aux_logits_dict[head_name][valid_mask], this_targets_1hot, reduction='mean')
+            else:
+                raise ValueError(f"Unknown auxiliary_loss_type: {auxiliary_loss_type}")
+            aux_loss = aux_loss + this_loss
+
+    total_loss = main_loss + aux_loss_scale * aux_loss
+    return main_loss, aux_loss, total_loss
 
 def smart_binary_dilation(image, kernel_size):
     # perform first (kernel_size,1,1) dilation

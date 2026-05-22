@@ -1,0 +1,24 @@
+# I/O PARAMS
+# INPUT
+data_path_img: '/gpfs/data/mayerhoeferlab/projects/myeloma/process_dicoms_for_mars/images_h5/' # path to directory housing h5 files
+data_path_datafiles: '/gpfs/data/mayerhoeferlab/projects/myeloma/datafiles_for_mars/test_df.csv' # path to directory housing datafiles (csv files)
+dataset_type: "test"
+#model_path_pattern: "/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth"
+
+
+# OUTPUT
+output: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/2D_all_seeds_prediction/ablation_fraction_seeds/test"  # overridden per fraction by run_all.sbatch
+model_path_pattern: "/gpfs/data/mayerhoeferlab/projects/myeloma/results/train/train_mars_from_scratch/ablation_experiment/frac_PLACEHOLDER/checkpoint_seed*_run0_best.pth"  # overridden per fraction by run_all.sbatch
+
+# MODEL PARAMS
+nfeat: 512
+
+# DATA PARAMS
+normalize: true
+postfilter_fwhm_xy_mm: 6.4
+#normalize_mean: 0.6763
+#normalize_std: 1.6433
+
+# DATALOADER PARAMS
+batch_size: 128
+workers: 6

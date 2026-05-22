@@ -1,0 +1,32 @@
+# W&B sweep for tumor_volume_bin_50 auxiliary-head training
+# Sweep variable: auxiliary_loss_scale
+# Fixed target: tumor_volume_bin_50
+
+program: /gpfs/home/kn2347/MARS/MARS/run_lars/train.py
+method: grid
+name: tumor_volume_bin_50_aux_loss_scale
+metric:
+  name: epoch/val/loss
+  goal: minimize
+parameters:
+  auxiliary_loss_scale:
+    values: [0.0, 0.05, 0.1, 0.15, 0.2, 0.25]
+command:
+  - ${env}
+  - python
+  - ${program}
+  - /gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/other_prediction_heads/auxiliary_labels_config.yaml
+  - --auxiliary_head_label_names
+  - tumor_volume_bin_50
+  - --auxiliary_head_loss_type
+  - bce
+  - --auxiliary_loss_scale
+  - ${auxiliary_loss_scale}
+  - --WANDB_run_name
+  - tumor_volume_bin_50_aux_${auxiliary_loss_scale}
+  - --output
+  - /gpfs/data/mayerhoeferlab/projects/myeloma/results/train/other_prediction_heads/auxiliary_labels/tumor_volume_bin_50_aux_loss_scale_${auxiliary_loss_scale}
+  - --seed_index
+  - 0
+  - --checkpoint
+  - /gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth

@@ -1,0 +1,50 @@
+{
+  "os": "Linux-4.18.0-477.27.1.el8_8.x86_64-x86_64-with-glibc2.28",
+  "python": "CPython 3.10.18",
+  "startedAt": "2026-04-21T20:33:47.977448Z",
+  "args": [
+    "/gpfs/home/kn2347/MARS/MARS/scripts/run_lars/train/train_2D_single_mipview_with_auxiliary/training_config.yaml",
+    "--seed_index",
+    "0",
+    "--checkpoint",
+    "/gpfs/data/mayerhoeferlab/projects/lars/lars-avg-max_chpt/LARS_trained_state-dict_0.pth"
+  ],
+  "program": "/gpfs/home/kn2347/MARS/MARS/run_lars/train.py",
+  "codePath": "MARS/run_lars/train.py",
+  "codePathLocal": "run_lars/train.py",
+  "git": {
+    "remote": "https://github.com/KarthikNair1/mARS.git",
+    "commit": "3d1c10e524238d023ce39206899817befd0e405c"
+  },
+  "email": "nair.karthik00@gmail.com",
+  "root": "/gpfs/home/kn2347/MARS/MARS",
+  "host": "a100-4018",
+  "executable": "/gpfs/home/kn2347/.conda/envs/myeloma6/bin/python",
+  "cpu_count": 48,
+  "cpu_count_logical": 48,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "210241560576",
+      "used": "12460670976"
+    }
+  },
+  "memory": {
+    "total": "540465025024"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere",
+      "uuid": "GPU-37d83584-0ae5-5e56-5de5-a2a166bd0e2d"
+    }
+  ],
+  "cudaVersion": "12.9",
+  "slurm": {
+    "job_id": "20773419"
+  },
+  "writerId": "e76zjdoavnkt7x1uizkl3rbq9ad5d38n"
+}

@@ -1,0 +1,13 @@
+{"time":"2026-04-21T16:33:48.931204085-04:00","level":"INFO","msg":"stream: starting","core version":"0.22.0"}
+{"time":"2026-04-21T16:33:49.2004618-04:00","level":"INFO","msg":"stream: created new stream","id":"otknyi2y"}
+{"time":"2026-04-21T16:33:49.20050733-04:00","level":"INFO","msg":"stream: started","id":"otknyi2y"}
+{"time":"2026-04-21T16:33:49.20157167-04:00","level":"INFO","msg":"handler: started","stream_id":"otknyi2y"}
+{"time":"2026-04-21T16:33:49.201624684-04:00","level":"INFO","msg":"writer: started","stream_id":"otknyi2y"}
+{"time":"2026-04-21T16:33:49.201800864-04:00","level":"INFO","msg":"sender: started","stream_id":"otknyi2y"}
+{"time":"2026-04-21T16:33:49.494600906-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2026-04-21T19:21:50.009935938-04:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/nair-karthik00/MARS/otknyi2y/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2026-04-21T22:08:04.393656201-04:00","level":"INFO","msg":"stream: closing","id":"otknyi2y"}
+{"time":"2026-04-21T22:08:04.773962541-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2026-04-21T22:08:05.069980179-04:00","level":"INFO","msg":"handler: closed","stream_id":"otknyi2y"}
+{"time":"2026-04-21T22:08:05.10249355-04:00","level":"INFO","msg":"sender: closed","stream_id":"otknyi2y"}
+{"time":"2026-04-21T22:08:05.102515013-04:00","level":"INFO","msg":"stream: closed","id":"otknyi2y"}

@@ -55,7 +55,8 @@ def set_defaults_config():
         'normalize_std': None,
         'combine_mipviews': None,
         'layer_idx': 4,
-        'binarization_threshold': 0.5
+        'binarization_threshold': 0.5,
+        'force_label_explain': None
     }
 
     for key, value in default_dict.items():
@@ -125,6 +126,10 @@ def load_merged_dfs(binarization_threshold = 0.5):
 default_cmap = LinearSegmentedColormap.from_list('custom blue',
                                                  [(0, '#ffffff'),
                                                   (1, '#0000ff')], N=256)
+
+default_cmap = LinearSegmentedColormap.from_list('custom green',
+                                                 [(0, '#ffffff'),
+                                                  (1, "#08ff4a")], N=256)
 
 cmap_2 = LinearSegmentedColormap.from_list('',
                                                  [(0, "#ff0000"),
@@ -304,6 +309,8 @@ uses_mipview = args['combine_mipviews'] is None
 model_probabilities, merged, merged_before_drop_mipview = load_merged_dfs(bin_thresh)
 dfo_prep = pd.read_csv(args['scans_for_inspection_csv'])
 
+force_label_explain = args['force_label_explain']
+
 # first, plot average interpretability over all the models
 layer_idx = args["layer_idx"]
 with warnings.catch_warnings():
@@ -315,6 +322,10 @@ with warnings.catch_warnings():
         label_number = row['label']
         lab_type = row['type']
         true_label = row['true_label']
+
+        if force_label_explain is not None:
+            label_number = force_label_explain
+            print(f'Forcing explanation of label {label_number} for accession {accession_id}')
 
         for method in ['IntegratedGradients', 'GuidedGradCam', 'Occlusion', 'GuidedBackprop', 'pytorch-gradcam']:
         #for method in ['IntegratedGradients', 'Occlusion', 'GuidedBackprop', 'pytorch-gradcam']:
